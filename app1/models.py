@@ -28,12 +28,15 @@ class Cotizacion(models.Model):
 	total = models.FloatField()
 	idEstadoCotizacion = models.IntegerField()
 	eliminado = models.BooleanField(default=False)
+	
+	def __str__(self):
+		return str(self.id)
 
 class DetalleCotizacion(models.Model):
 	cotizacion = models.ForeignKey('Cotizacion')
 	producto = models.ForeignKey('Producto', blank=True, null=True)	
 	servicio = models.ForeignKey('Servicio', blank=True, null=True)
-	cantidad = models.IntegerField()
+	cantidad = models.IntegerField(blank=True, null=True)
 	subtotal = models.FloatField()
 	idEstadoDetalleCotizacion = models.IntegerField()
 	eliminado = models.BooleanField(default=False)
