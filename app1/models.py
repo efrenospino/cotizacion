@@ -1,51 +1,59 @@
 from django.db import models
 
 class Producto(models.Model):
-	nombre = models.CharField(max_length=100)
-	descripcion = models.CharField(max_length=255, blank=True)
-	idUnidad = models.IntegerField()
-	precio = models.FloatField()
-	empresa = models.ForeignKey('Empresa')
-	idEstadoProducto = models.IntegerField()
-	eliminado = models.BooleanField(default=False)
+    nombre = models.CharField(max_length=100)
+    descripcion = models.CharField(max_length=255, blank=True)
+    idUnidad = models.IntegerField()
+    precio = models.FloatField()
+    empresa = models.ForeignKey('Empresa')
+    idEstadoProducto = models.IntegerField()
+    eliminado = models.BooleanField(default=False)
 
-	def __str__(self):
-		return self.nombre
+    def __str__(self):
+        return self.nombre
 
 class Servicio(models.Model):
-	nombre = models.CharField(max_length=100)
-	descripcion = models.CharField(max_length=255, blank=True)
-	precio = models.FloatField()
-	empresa = models.ForeignKey('Empresa')
-	idEstadoServicio = models.IntegerField()
-	eliminado = models.BooleanField(default=False)
-
-	def __str__(self):
-		return self.nombre
+    nombre = models.CharField(max_length=100)
+    descripcion = models.CharField(max_length=255, blank=True)
+    precio = models.FloatField()
+    empresa = models.ForeignKey('Empresa')
+    idEstadoServicio = models.IntegerField()
+    eliminado = models.BooleanField(default=False)
+    def __str__(self):
+        return self.nombre
 
 class Cotizacion(models.Model):
-	fecha = models.DateField(auto_now_add=True)
-	cliente = models.ForeignKey('Cliente')
-	empresa = models.ForeignKey('Empresa')
-	empleado = models.ForeignKey('Empleado')
-	total = models.FloatField()
-	idEstadoCotizacion = models.IntegerField()
-	eliminado = models.BooleanField(default=False)
-	
-	def __str__(self):
-		return str(self.id)
+    fecha = models.DateField(auto_now_add=True)
+    cliente = models.ForeignKey('Cliente')
+    empresa = models.ForeignKey('Empresa')
+    empleado = models.ForeignKey('Empleado')
+    total = models.FloatField()
+    idEstadoCotizacion = models.IntegerField()
+    eliminado = models.BooleanField(default=False)
+    def _cotizacionItems(self):
+        return set(detalleCotizacion.subtotal for detalleCotizacion in 
+            DetalleCotizacion.objects.filter(cotizacion=self.id))
+    items = property(_cotizacionItems)
+    def _calcularTotal(self):
+        t = 0
+        for item in self.items:
+            t = t + item
+        return t
+    total = property(_calcularTotal)
+    def __str__(self):
+        return str(self.id)
 
 class DetalleCotizacion(models.Model):
-	cotizacion = models.ForeignKey('Cotizacion')
-	empresa = models.ForeignKey('Empresa')
-	producto = models.ForeignKey('Producto', blank=True, null=True)	
-	servicio = models.ForeignKey('Servicio', blank=True, null=True)
-	cantidad = models.IntegerField(blank=True, null=True)
-	def _get_subtotal(self):
-		return self.cantidad*self.producto.precio
-	subtotal = property(_get_subtotal)	
-	idEstadoDetalleCotizacion = models.IntegerField()
-	eliminado = models.BooleanField(default=False)
+    cotizacion = models.ForeignKey('Cotizacion')
+    empresa = models.ForeignKey('Empresa')
+    producto = models.ForeignKey('Producto', blank=True, null=True)
+    servicio = models.ForeignKey('Servicio', blank=True, null=True)
+    cantidad = models.IntegerField(blank=True, null=True)
+    def _get_subtotal(self):
+        return self.cantidad*self.producto.precio
+    subtotal = property(_get_subtotal)  
+    idEstadoDetalleCotizacion = models.IntegerField()
+    eliminado = models.BooleanField(default=False)
 
 class Cliente(models.Model):
     identificacion = models.CharField(max_length=15)
@@ -59,7 +67,7 @@ class Cliente(models.Model):
     telefonos = models.CharField(max_length=100, blank=True)
     empresa = models.ForeignKey('Empresa')
     eliminado = models.BooleanField(default=False)
-    
+
     def __str__(self):
         if self.nombres <>'' and self.apellidos <>'':
             return "%s %s"  % (self.nombres,self.apellidos)
@@ -77,7 +85,7 @@ class Empleado(models.Model):
     empresa = models.ForeignKey('Empresa')
     telefonos = models.CharField(max_length=100, blank=True)
     eliminado = models.BooleanField(default=False)
-    
+
     def __str__(self):
         return "%s %s"  % (self.nombres,self.apellidos)
 
@@ -100,7 +108,7 @@ class Parametro(models.Model):
         return self.atributo
 
 class ValorParametro(models.Model):
-    
+
     valor = models.CharField(max_length=30)
     parametro = models.ForeignKey('Parametro')
     orden = models.CharField(max_length=3)

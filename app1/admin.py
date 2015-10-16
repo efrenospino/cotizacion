@@ -2,7 +2,8 @@ from django.contrib import admin
 from app1.models import *
 
 class ClienteAdmin(admin.ModelAdmin):
-    list_display = ('id','identificacion','razonSocial','nombres','apellidos')
+    list_display = ('id','identificacion','razonSocial','nombres',
+    	'apellidos', 'direccion', 'email', 'telefonos')
 
 class EmpleadoAdmin(admin.ModelAdmin):
     list_display = ('id','identificacion', 'nombres','apellidos')
@@ -21,7 +22,7 @@ class CotizacionAdmin(admin.ModelAdmin):
     
 class DetalleCotizacionAdmin(admin.ModelAdmin):
     list_display = ('id','cotizacion','producto','servicio', 'cantidad', 'subtotal')
-    
+
 admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Servicio, ServicioAdmin)
 admin.site.register(Cotizacion, CotizacionAdmin)
