@@ -3,6 +3,9 @@ from app1.models import *
 
 class ClienteAdmin(admin.ModelAdmin):
     list_display = ('id','identificacion','razonSocial','nombres','apellidos')
+
+class EmpleadoAdmin(admin.ModelAdmin):
+    list_display = ('id','identificacion', 'nombres','apellidos')
     
 class EmpresaAdmin(admin.ModelAdmin):
     list_display = ('id','identificacion','razonSocial','direccion')
@@ -24,6 +27,7 @@ admin.site.register(Servicio, ServicioAdmin)
 admin.site.register(Cotizacion, CotizacionAdmin)
 admin.site.register(DetalleCotizacion, DetalleCotizacionAdmin)
 admin.site.register(Cliente, ClienteAdmin)
+admin.site.register(Empleado, EmpleadoAdmin)
 admin.site.register(Empresa, EmpresaAdmin)
 admin.site.register(Parametro)
 admin.site.register(ValorParametro)
