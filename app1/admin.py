@@ -2,8 +2,7 @@ from django.contrib import admin
 from app1.models import *
 
 class ClienteAdmin(admin.ModelAdmin):
-    list_display = ('id','identificacion','razonSocial','nombres',
-    	'apellidos', 'direccion', 'email', 'telefonos')
+    list_display = ('id','identificacion','razonSocial', 'idTipoId', 'nombres', 'apellidos', 'direccion', 'email', 'telefonos', 'empresa')
 
 class EmpleadoAdmin(admin.ModelAdmin):
     list_display = ('id','identificacion', 'nombres','apellidos')
