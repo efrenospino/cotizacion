@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+	<table class="ui black table">
+		<thead>
+	    	<tr>
+	    		<th>Código</th>
+	    		<th>Identificación</th>
+	    		<th>Razón social</th>
+	    		<th>Direccion</th>
+	  		</tr>
+	  	</thead>
+		<tbody>
+			{% for empresa in empresas %}
+			<tr>
+				<td>{{empresa.id}}</td>
+				<td>{{empresa.identificacion}}</td>
+				<td>{{empresa.razonSocial}}</td>
+				<td>{{empresa.direccion}}</td>
+			</tr>
+			{% endfor %}
+	  	</tbody>
+	</table>
+{% endblock content %}

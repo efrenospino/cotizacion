@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+	<table class="ui yellow table">
+		<thead>
+	    	<tr>
+	    		<th>Código</th>
+	    		<th>Nombre</th>
+	    		<th>Descripción</th>
+	    		<th>Unidad</th>
+	    		<th>Precio</th>
+	    		<th>Empresa</th>
+	  		</tr>
+	  	</thead>
+		<tbody>
+			{% for producto in productos %}
+			<tr>
+				<td>{{producto.id}}</td>
+				<td>{{producto.nombre}}</td>
+				<td>{{producto.descripcion}}</td>
+				<td>{{producto.idUnidad}}</td>
+				<td>{{producto.precio}}</td>
+				<td>{{producto.empresa}}</td>
+			</tr>
+			{% endfor %}
+	  	</tbody>
+	</table>
+{% endblock content %}

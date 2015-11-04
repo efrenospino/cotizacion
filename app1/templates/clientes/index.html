@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+	<table class="ui red table">
+		<thead>
+	    	<tr>
+	    		<th>Código</th>
+	    		<th>Identificación</th>
+	    		<th>Nombre</th>
+	    		<th>Direcion</th>
+	    		<th>eMail</th>
+	    		<th>Teléfonos</th>
+	  		</tr>
+	  	</thead>
+		<tbody>
+			{% for cliente in clientes %}
+			<tr>
+				<td>{{cliente.id}}</td>
+				<td>{{cliente.identificacion}}</td>
+				<td>{{cliente}}</td>
+				<td>{{cliente.direccion}}</td>
+				<td>{{cliente.email}}</td>
+				<td>{{cliente.telefonos}}</td>
+			</tr>
+			{% endfor %}
+	  	</tbody>
+	</table>
+{% endblock content %}

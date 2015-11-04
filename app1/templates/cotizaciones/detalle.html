@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+	<table class="ui green table">
+		<thead>
+	    	<tr>
+	    		<th>Código</th>
+	    		<th>Fecha</th>
+	    		<th>Empresa</th>
+	    		<th>Cliente</th>
+	    		<th>Empleado</th>
+	    		<th>Total</th>
+	  		</tr>
+	  	</thead>
+		<tbody>
+			<tr>
+				<td>{{cotizacion.id}}</td>
+				<td>{{cotizacion.fecha}}</td>
+				<td>{{cotizacion.empresa}}</td>
+				<td>{{cotizacion.cliente}}</td>
+				<td>{{cotizacion.empleado}}</td>
+				<td>{{cotizacion.total}}</td>
+			</tr>
+	  	</tbody>
+	</table>
+	<table class="ui green table">
+		<thead>
+	    	<tr>
+	    		<th>Código</th>
+	    		<th>Cotización</th>
+	    		<th>Producto</th>
+	    		<th>Servicio</th>
+	    		<th>Cantidad</th>
+	    		<th>Subtotal</th>
+	  		</tr>
+	  	</thead>
+		<tbody>
+			{% for detalle in detalles %}
+			<tr>
+				<td>{{detalle.id}}</td>
+				<td>{{detalle.cotizacion}}</td>
+				<td>{{detalle.producto}}</td>
+				<td>{{detalle.servicio}}</td>
+				<td>{{detalle.cantidad}}</td>
+				<td>{{detalle.subtotal}}</td>
+			</tr>
+			{% endfor %}
+	  	</tbody>
+	</table>
+{% endblock content %}

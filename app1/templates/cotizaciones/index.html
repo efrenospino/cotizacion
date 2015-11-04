@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+	<table class="ui green table">
+		<thead>
+	    	<tr>
+	    		<th>Código</th>
+	    		<th>Fecha</th>
+	    		<th>Empresa</th>
+	    		<th>Cliente</th>
+	    		<th>Empleado</th>
+	    		<th>Total</th>
+	  		</tr>
+	  	</thead>
+		<tbody>
+			{% for cotizacion in cotizaciones %}
+			<tr>
+				<td><a href='/cotizaciones/{{cotizacion.id}}'>{{cotizacion.id}}</a></td>
+				<td>{{cotizacion.fecha}}</td>
+				<td>{{cotizacion.empresa}}</td>
+				<td>{{cotizacion.cliente}}</td>
+				<td>{{cotizacion.empleado}}</td>
+				<td>{{cotizacion.total}}</td>
+			</tr>
+			{% endfor %}
+	  	</tbody>
+	</table>
+{% endblock content %}

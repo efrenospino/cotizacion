@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+    	<meta name="mobile-web-app-capable" content="yes">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.4/semantic.min.css">
+		<style type="text/css">
+		    body {
+		       background-color: #FFFFFF;
+		     }
+		     .main.container {
+		       margin-top: 7em;
+		     }
+		     .ui.footer.segment {
+		       margin: 5em 0em 0em;
+		       padding: 5em 0em;
+		     }
+		  </style>
+	</head>
+	<body>
+		<div class="ui container">
+			<div class="ui fixed menu">
+			 	<div class="ui container">
+			    	<a href="../clientes/" class="item">Clientes</a>
+		            <a href="../empleados/" class="item">Empleados</a>
+		            <a href="../productos/" class="item">Productos</a>
+		            <a href="../servicios/" class="item">Servicios</a>
+		            <a href="../empresas/" class="item">Empresas</a>
+		            <a href="../cotizaciones/" class="item">Cotizaciones</a>
+					<div class="right menu">
+						<div class="ui dropdown item">
+					    	<span class="text">Usuario</span>
+					    	<i class="dropdown icon"></i>
+					    	<div class="menu">
+						    	<div class="item">Información</div>
+		        				<div class="item" onclick="location.href='../index.html'">Cerrar sesión</div>
+					    	</div>
+					    </div>
+		            </div>
+			  	</div>
+			</div>
+			<div class="ui main container">
+				{% block content %}
+
+				{% endblock content %}
+			</div>
+			<div class="ui vertical footer segment">
+			    <div class="ui center aligned container">
+			      <div class="ui stackable divided grid">
+			        <div class="three wide column">
+			          <div class="ui list">
+			            <div class="item">
+			              <i class="user icon"></i>
+			              <div class="content">
+			                Efren Ospino
+			              </div>
+			            </div>
+			            <div class="item">
+			              <i class="marker icon"></i>
+			              <div class="content">
+			                Barranquilla, Colombia
+			              </div>
+			            </div>
+			            <div class="item">
+			              <i class="mail icon"></i>
+			              <div class="content">
+			                <a href="mailto:eospino8@cuc.edu.co">eospino8@cuc.edu.co</a>
+			              </div>
+			            </div>
+			          </div>
+			        </div>
+			        <div class="three wide column">
+			          <div class="ui list">
+			            <div class="item">
+			              <i class="user icon"></i>
+			              <div class="content">
+			                Fernando Payares
+			              </div>
+			            </div>
+			            <div class="item">
+			              <i class="marker icon"></i>
+			              <div class="content">
+			                Barranquilla, Colombia
+			              </div>
+			            </div>
+			            <div class="item">
+			              <i class="mail icon"></i>
+			              <div class="content">
+			                <a href="mailto:fpayares@cuc.edu.co">fpayares@cuc.edu.co</a>
+			              </div>
+			            </div>
+			          </div>
+			        </div>
+			        <div class="three wide column">
+			          <div class="ui list">
+			            <div class="item">
+			              <i class="user icon"></i>
+			              <div class="content">
+			                David Rodríguez
+			              </div>
+			            </div>
+			            <div class="item">
+			              <i class="marker icon"></i>
+			              <div class="content">
+			                Barranquilla, Colombia
+			              </div>
+			            </div>
+			            <div class="item">
+			              <i class="mail icon"></i>
+			              <div class="content">
+			                <a href="mailto:drodrig@cuc.edu.co">drodrig@cuc.edu.co</a>
+			              </div>
+			            </div>
+			          </div>
+			        </div>
+			        <div class="seven wide column">
+				        <img class="ui middle aligned tiny image" src="http://eduvirtual.cuc.edu.co/moodle/pluginfile.php/584/block_html/content/cuc_1_thumb.png">
+				        <span>Universidad de la Costa</span>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+		</div>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('.ui.dropdown').dropdown();
+			});
+
+		</script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.4/semantic.min.js">$('.ui.dropdown').dropdown();</script>
+	</body>
+</html>

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+	<table class="ui blue table">
+		<thead>
+	    	<tr>
+	    		<th>Código</th>
+	    		<th>Identificación</th>
+	    		<th>Nombre</th>
+	    		<th>Direcion</th>
+	    		<th>eMail</th>
+	    		<th>Teléfonos</th>
+	    		<th>Empresa</th>
+	  		</tr>
+	  	</thead>
+		<tbody>
+			{% for empleado in empleados %}
+			<tr>
+				<td>{{empleado.id}}</td>
+				<td>{{empleado.identificacion}}</td>
+				<td>{{empleado}}</td>
+				<td>{{empleado.direccion}}</td>
+				<td>{{empleado.email}}</td>
+				<td>{{empleado.telefonos}}</td>
+				<td>{{empleado.empresa}}</td>
+			</tr>
+			{% endfor %}
+	  	</tbody>
+	</table>
+{% endblock content %}

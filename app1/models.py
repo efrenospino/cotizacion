@@ -30,27 +30,33 @@ class Cotizacion(models.Model):
     total = models.FloatField()
     idEstadoCotizacion = models.IntegerField()
     eliminado = models.BooleanField(default=False)
+
     def _cotizacionItems(self):
         return set(detalleCotizacion.subtotal for detalleCotizacion in 
             DetalleCotizacion.objects.filter(cotizacion=self.id))
+
     items = property(_cotizacionItems)
+
     def _calcularTotal(self):
         t = 0
         for item in self.items:
             t = t + item
         return t
+    
     total = property(_calcularTotal)
+
     def __str__(self):
         return str(self.id)
 
 class DetalleCotizacion(models.Model):
     cotizacion = models.ForeignKey('Cotizacion')
-    empresa = models.ForeignKey('Empresa')
     producto = models.ForeignKey('Producto', blank=True, null=True)
     servicio = models.ForeignKey('Servicio', blank=True, null=True)
     cantidad = models.IntegerField(blank=True, null=True)
+
     def _get_subtotal(self):
         return self.cantidad*self.producto.precio
+            
     subtotal = property(_get_subtotal)  
     idEstadoDetalleCotizacion = models.IntegerField()
     eliminado = models.BooleanField(default=False)

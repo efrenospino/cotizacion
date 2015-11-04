@@ -16,16 +16,16 @@ class ProductoAdmin(admin.ModelAdmin):
 class ServicioAdmin(admin.ModelAdmin):
     list_display = ('id','nombre','descripcion','precio')
 
+class DetalleCotizacionInline(admin.TabularInline):
+	model = DetalleCotizacion
+
 class CotizacionAdmin(admin.ModelAdmin):
+    inlines = (DetalleCotizacionInline,)
     list_display = ('id','fecha','cliente','total')
-    
-class DetalleCotizacionAdmin(admin.ModelAdmin):
-    list_display = ('id','cotizacion','producto','servicio', 'cantidad', 'subtotal')
 
 admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Servicio, ServicioAdmin)
 admin.site.register(Cotizacion, CotizacionAdmin)
-admin.site.register(DetalleCotizacion, DetalleCotizacionAdmin)
 admin.site.register(Cliente, ClienteAdmin)
 admin.site.register(Empleado, EmpleadoAdmin)
 admin.site.register(Empresa, EmpresaAdmin)
