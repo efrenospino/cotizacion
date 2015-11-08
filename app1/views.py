@@ -1,5 +1,18 @@
 from django.shortcuts import render, render_to_response
+from django.http import HttpResponse
 from app1.models import *
+
+def home(request):
+	cotizaciones = Cotizacion.objects.all()
+	productos = Producto.objects.all()
+	servicios = Servicio.objects.all()
+	empresas = Empresa.objects.all()
+	empleados = Empleado.objects.all()
+	clientes = Cliente.objects.all()
+	return render_to_response('index.html', {
+		'cotizaciones': cotizaciones, 'productos': productos, 
+		'servicios': servicios, 'empresas': empresas, 
+		'empleados': empleados, 'clientes': clientes});
 
 def productosIndex(request):
 	listado = Producto.objects.all()

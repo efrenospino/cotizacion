@@ -1,27 +1,48 @@
 {% extends "base.html" %}
 {% block content %}
-	<table class="ui yellow table">
-		<thead>
-	    	<tr>
-	    		<th>Código</th>
-	    		<th>Nombre</th>
-	    		<th>Descripción</th>
-	    		<th>Unidad</th>
-	    		<th>Precio</th>
-	    		<th>Empresa</th>
-	  		</tr>
-	  	</thead>
-		<tbody>
-			{% for producto in productos %}
-			<tr>
-				<td>{{producto.id}}</td>
-				<td>{{producto.nombre}}</td>
-				<td>{{producto.descripcion}}</td>
-				<td>{{producto.idUnidad}}</td>
-				<td>{{producto.precio}}</td>
-				<td>{{producto.empresa}}</td>
-			</tr>
-			{% endfor %}
-	  	</tbody>
-	</table>
+
+	<script type="text/javascript">
+		document.getElementById('productos').className = 'active';
+	</script>
+
+	<div class="row">
+	    <div class="col-lg-12">
+	        <h1 class="page-header">
+	            Productos
+	            <small>Listado de productos</small>
+	        </h1>
+	        <ol class="breadcrumb">
+	            <li>
+	                <i class="fa fa-dashboard"></i>  <a href="/">Inicio</a>
+	            </li>
+	            <li class="active">
+	                <i class="fa fa-file"></i> Productos
+	            </li>
+	        </ol>
+	    </div>
+		<table class="ui celled table">
+			<thead>
+		    	<tr>
+		    		<th>Código</th>
+		    		<th>Nombre</th>
+		    		<th>Descripción</th>
+		    		<th>Unidad</th>
+		    		<th>Precio</th>
+		    		<th>Empresa</th>
+		  		</tr>
+		  	</thead>
+			<tbody>
+				{% for producto in productos %}
+				<tr>
+					<td>{{producto.id}}</td>
+					<td>{{producto.nombre}}</td>
+					<td>{{producto.descripcion}}</td>
+					<td>{{producto.idUnidad}}</td>
+					<td>{{producto.precio}}</td>
+					<td>{{producto.empresa}}</td>
+				</tr>
+				{% endfor %}
+		  	</tbody>
+		</table>
+	</div>
 {% endblock content %}

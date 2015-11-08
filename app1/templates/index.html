@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% block content %}
+	
+	<script type="text/javascript">
+		document.getElementById('inicio').className = 'active';
+	</script>
+
+	<!-- Page Heading -->
+	<div class="row">
+	    <div class="col-lg-12">
+	        <h1 class="page-header">
+	            Inicio <small>Estadísticas principaes</small>
+	        </h1>
+	        <ol class="breadcrumb">
+	            <li class="active">
+	                <i class="dashboard icon"></i> Inicio
+	            </li>
+	        </ol>
+	    </div>
+	</div>
+	<!-- /.row -->
+	<div class="row">
+		<div class="col-lg-4 col-md-4">
+		    <div class="panel panel-primary">
+		        <div class="panel-heading">
+		            <div class="row">
+		                <div class="col-xs-3">
+		                    <i class="huge calculator icon"></i>
+		                </div>
+		                <div class="col-xs-9 text-right">
+		                    <div class="huge">{{ cotizaciones|length }}</div>
+		                    <div>Cotizaciones!</div>
+		                </div>
+		            </div>
+		        </div>
+		        <a href="../cotizaciones">
+		            <div class="panel-footer">
+		                <span class="pull-left">Ver más...</span>
+		                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+		                <div class="clearfix"></div>
+		            </div>
+		        </a>
+		    </div>
+		</div>
+		<div class="col-lg-4 col-md-4">
+		    <div class="panel panel-primary">
+		        <div class="panel-heading">
+		            <div class="row">
+		                <div class="col-xs-3">
+		                    <i class="huge list layout icon"></i>
+		                </div>
+		                <div class="col-xs-9 text-right">
+		                    <div class="huge">{{ productos|length }}</div>
+		                    <div>Productos!</div>
+		                </div>
+		            </div>
+		        </div>
+		        <a href="../productos">
+		            <div class="panel-footer">
+		                <span class="pull-left">Ver más...</span>
+		                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+		                <div class="clearfix"></div>
+		            </div>
+		        </a>
+		    </div>
+		</div>
+		<div class="col-lg-4 col-md-4">
+		    <div class="panel panel-primary">
+		        <div class="panel-heading">
+		            <div class="row">
+		                <div class="col-xs-3">
+		                    <i class="huge list layout icon"></i>
+		                </div>
+		                <div class="col-xs-9 text-right">
+		                    <div class="huge">{{ servicios|length }}</div>
+		                    <div>Servicios!</div>
+		                </div>
+		            </div>
+		        </div>
+		        <a href="../servicios">
+		            <div class="panel-footer">
+		                <span class="pull-left">Ver más...</span>
+		                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+		                <div class="clearfix"></div>
+		            </div>
+		        </a>
+		    </div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-4 col-md-4">
+		    <div class="panel panel-primary">
+		        <div class="panel-heading">
+		            <div class="row">
+		                <div class="col-xs-3">
+		                    <i class="huge users icon"></i>
+		                </div>
+		                <div class="col-xs-9 text-right">
+		                    <div class="huge">{{ clientes|length }}</div>
+		                    <div>Clientes!</div>
+		                </div>
+		            </div>
+		        </div>
+		        <a href="../clientes">
+		            <div class="panel-footer">
+		                <span class="pull-left">Ver más...</span>
+		                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+		                <div class="clearfix"></div>
+		            </div>
+		        </a>
+		    </div>
+		</div>
+		<div class="col-lg-4 col-md-4">
+		    <div class="panel panel-primary">
+		        <div class="panel-heading">
+		            <div class="row">
+		                <div class="col-xs-3">
+		                    <i class="huge users icon"></i>
+		                </div>
+		                <div class="col-xs-9 text-right">
+		                    <div class="huge">{{ empleados|length }}</div>
+		                    <div>Empleados!</div>
+		                </div>
+		            </div>
+		        </div>
+		        <a href="../empleados">
+		            <div class="panel-footer">
+		                <span class="pull-left">Ver más...</span>
+		                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+		                <div class="clearfix"></div>
+		            </div>
+		        </a>
+		    </div>
+		</div>
+		<div class="col-lg-4 col-md-4">
+		    <div class="panel panel-primary">
+		        <div class="panel-heading">
+		            <div class="row">
+		                <div class="col-xs-3">
+		                    <i class="huge building outline icon"></i>
+		                </div>
+		                <div class="col-xs-9 text-right">
+		                    <div class="huge">{{ empresas|length }}</div>
+		                    <div>Empresas!</div>
+		                </div>
+		            </div>
+		        </div>
+		        <a href="../empresas">
+		            <div class="panel-footer">
+		                <span class="pull-left">Ver más...</span>
+		                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+		                <div class="clearfix"></div>
+		            </div>
+		        </a>
+		    </div>
+		</div>
+	</div>
+
+{% endblock content %}

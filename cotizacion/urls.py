@@ -18,6 +18,7 @@ from django.contrib import admin
 from app1 import views
 
 urlpatterns = [
+    url(r'^$', views.home),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^productos/$', views.productosIndex),
     url(r'^servicios/$', views.serviciosIndex),
@@ -25,6 +26,5 @@ urlpatterns = [
     url(r'^empleados/$', views.empleadosIndex),    
     url(r'^empresas/$', views.empresasIndex),
     url(r'^cotizaciones/$', views.cotizacionesIndex),
-    url (r'^cotizaciones/(?P<id>\d+)', views.verCotizacion),
+    url(r'^cotizaciones/(?P<id>\d+)', views.verCotizacion),
 ]
-
