@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+
+	<script type="text/javascript">
+		document.getElementById('cotizaciones').className = 'active';
+	</script>
+	
+	<div class="row">
+		<div class="col-lg-12">
+		    <h1 class="page-header">
+		        Cotizaciones
+		        <small>Listado de cotizaciones</small>
+		    </h1>
+		    <ol class="breadcrumb">
+	            <li><a class="section" href="/"><i class="circular folder icon"></i>Inicio</a></li>
+	            <i class="right chevron icon divider"></i>
+	            <li><a class="section" href="/cotizaciones"><i class="circular folder icon"></i>Cotizaciones</a></li>
+	            <i class="right chevron icon divider"></i>
+	            <li class="active"><i class="circular folder open icon"></i> {{cotizacion.id}}</li>
+	        </ol>
+		</div>
+		<div class="col-lg-12">
+			<table class="ui blue celled table">
+				<thead>
+			    	<tr>
+			    		<th>Código</th>
+			    		<th>Fecha</th>
+			    		<th>Empresa</th>
+			    		<th>Cliente</th>
+			    		<th>Empleado</th>
+			    		<th>Total</th>
+			  		</tr>
+			  	</thead>
+				<tbody>
+					<tr>
+						<td>{{cotizacion.id}}</td>
+						<td>{{cotizacion.fecha}}</td>
+						<td>{{cotizacion.empresa}}</td>
+						<td>{{cotizacion.cliente}}</td>
+						<td>{{cotizacion.empleado}}</td>
+						<td>{{cotizacion.total}}</td>
+					</tr>
+			  	</tbody>
+			</table>
+			<h2>Items de la cotización</h2>
+			<table class="ui blue celled table">
+				<thead>
+			    	<tr>
+			    		<th>Producto</th>
+			    		<th>Servicio</th>
+			    		<th>Cantidad</th>
+			    		<th>Subtotal</th>
+			  		</tr>
+			  	</thead>
+				<tbody>
+					{% for detalle in detalles %}
+					<tr>
+						<td>{{detalle.producto}}</td>
+						<td>{{detalle.servicio}}</td>
+						<td>{{detalle.cantidad}}</td>
+						<td>{{detalle.subtotal}}</td>
+					</tr>
+					{% endfor %}
+			  	</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock content %}

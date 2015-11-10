@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+
+	<script type="text/javascript">
+		document.getElementById('empleados').className = 'active';
+	</script>
+
+	<div class="row">
+	    <div class="col-lg-12">
+	        <h1 class="page-header">
+	            Empleados
+	            <small>Listado de empleados</small>
+	        </h1>
+	        <ol class="breadcrumb">
+	            <li><a class="section" href="/"><i class="circular folder icon"></i>Inicio</a></li>
+	            <i class="right chevron icon divider"></i>
+	            <li class="active"><i class="circular folder open icon"></i> Empleados</li>
+	        </ol>
+	    </div>
+	    <div class="col-lg-12">
+	        <ul class="list-unstyled">
+		        <li class="active">
+		        	<div class="ui labeled button" tabindex="0">
+	          			<div class="positive ui button"  onclick="window.location.href='add'"><i class="add icon"></i> Agregar </div>
+	          			<a class="ui basic green left pointing label">
+	            			{{empleados|length}}
+	          			</a>
+	        		</div>
+	        	</li>
+	        </ul>
+	    </div>
+	    <div class="col-lg-12">
+			<table class="ui blue celled table">
+				<thead>
+			    	<tr>
+			    		<th>Código</th>
+			    		<th>Identificación</th>
+			    		<th>Nombre</th>
+			    		<th>Direcion</th>
+			    		<th>eMail</th>
+			    		<th>Teléfonos</th>
+			    		<th>Empresa</th>
+			  		</tr>
+			  	</thead>
+				<tbody>
+					{% for empleado in empleados %}
+					<tr>
+						<td>{{empleado.id}}</td>
+						<td>{{empleado.identificacion}}</td>
+						<td>{{empleado}}</td>
+						<td>{{empleado.direccion}}</td>
+						<td>{{empleado.email}}</td>
+						<td>{{empleado.telefonos}}</td>
+						<td>{{empleado.empresa}}</td>
+					</tr>
+					{% endfor %}
+			  	</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock content %}

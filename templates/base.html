@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="">
 		<meta name="author" content="">
-		<title>SB Admin - Bootstrap Admin Template</title>
+		<title>Sistema de Cotizaciones v1.0 - Online</title>
 
 		<!-- Bootstrap Core CSS -->
 		<link href="{% static 'dist/bootstrap-admin/css/bootstrap.min.css '%}" rel="stylesheet">
@@ -20,6 +20,14 @@
 
 		<!-- Custom Fonts -->
 		<link href="{% static 'dist/bootstrap-admin/font-awesome/css' %}/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<style type="text/css">
+		table tr[data-href] {
+		    cursor: pointer;
+		}
+		table tr[data-href]:hover { 
+		    background-color: #E6EBFA;
+		}
+		</style>
 	</head>
 	<body>
 
@@ -187,12 +195,26 @@
 		    </div>
 
 		<!-- jQuery -->
-		<script src="{% static 'dist/bootstrap-admin/js/jquery.js' %}"></script>
+		<script src="{% static 'dist/jquery/jquery-1.11.3.min.js' %}"></script>
 
 		<!-- Semantic-UI -->
 		<script src="{% static 'dist/semantic-ui/semantic.min.js' %}"></script>
 
+		<script type="text/javascript">
+			/*$(document).ready(function(){
+			    $('table tr').click(function(){
+			        window.location = $(this).data('href');
+			        return false;
+			    });
+			});*/
+			$('select.dropdown')
+			  .dropdown();
+		</script>
+		
 		<!-- Bootstrap Core JavaScript -->
 		<script src="{% static 'dist/bootstrap-admin/js/bootstrap.min.js' %}"></script>
+		
+
+
 	</body>
 </html>

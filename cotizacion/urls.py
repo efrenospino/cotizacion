@@ -18,13 +18,29 @@ from django.contrib import admin
 from app1 import views
 
 urlpatterns = [
+
     url(r'^$', views.home),
+
     url(r'^admin/', include(admin.site.urls)),
+
     url(r'^productos/$', views.productosIndex),
+    url(r'^productos/add$', views.agregarProducto),
+    url(r'^productos/edit/(?P<id>\d+)/$', views.editarProducto),
+
     url(r'^servicios/$', views.serviciosIndex),
-    url(r'^clientes/$', views.clientesIndex),    
+    url(r'^servicios/add$', views.agregarServicio),
+
+    url(r'^clientes/$', views.clientesIndex),
+    url(r'^clientes/add$', views.agregarCliente),    
+
     url(r'^empleados/$', views.empleadosIndex),    
+    url(r'^empleados/add$', views.agregarEmpleado),
+
     url(r'^empresas/$', views.empresasIndex),
+    url(r'^empresas/add$', views.agregarEmpresa),
+
     url(r'^cotizaciones/$', views.cotizacionesIndex),
     url(r'^cotizaciones/(?P<id>\d+)', views.verCotizacion),
+    url(r'^cotizaciones/add$', views.agregarCotizacion),
+
 ]

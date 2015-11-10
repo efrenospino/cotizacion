@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+
+	<script type="text/javascript">
+		document.getElementById('productos').className = 'active';
+	</script>
+
+	<div class="row">
+	    <div class="col-lg-12">
+	        <h1 class="page-header">
+	            Productos
+	            <small>Listado de productos</small>
+	        </h1>
+	        <ol class="breadcrumb">
+	            <li><a class="section" href="/"><i class="circular folder icon"></i>Inicio</a></li>
+	            <i class="right chevron icon divider"></i>
+	            <li class="active"><i class="circular folder open icon"></i> Productos</li>
+	        </ol>
+	    </div>
+	    <div class="col-lg-12">
+	        <ul class="list-unstyled">
+		        <li class="active">
+		        	<div class="ui labeled button" tabindex="0">
+	          			<div class="positive ui button"  onclick="window.location.href='add'"><i class="add icon"></i> Agregar </div>
+	          			<a class="ui basic green left pointing label">
+	            			{{productos|length}}
+	          			</a>
+	        		</div>
+	        	</li>
+	        </ul>
+	    </div>
+	    <div class="col-lg-12">
+			<table class="ui blue celled table">
+				<thead>
+			    	<tr>
+			    		<th>Código</th>
+			    		<th>Nombre</th>
+			    		<th>Descripción</th>
+			    		<th>Unidad</th>
+			    		<th>Precio</th>
+			    		<th>Empresa</th>
+			    		<th>Acciones</th>
+			  		</tr>
+			  	</thead>
+				<tbody>
+					{% for producto in productos %}
+					<tr data-href="{{producto.id}}">					
+						<td>{{producto.id}}</td>
+						<td>{{producto.nombre}}</td>
+						<td>{{producto.descripcion}}</td>
+						<td>{{producto.idUnidad}}</td>
+						<td>{{producto.precio}}</td>
+						<td>{{producto.empresa}}</td>
+						<td>
+							<button type="button" class="ui labeled icon button" onclick="window.location.href='edit/{{producto.id}}'"><i class="edit icon"></i>Editar</button>
+						</td>
+					</tr>
+					{% endfor %}
+			  	</tbody>
+			</table>
+	    </div>
+	</div>
+{% endblock content %}
