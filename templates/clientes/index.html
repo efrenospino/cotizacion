@@ -11,8 +11,6 @@
 	            Clientes
 	            <small>Listado de clientes</small>
 	        </h1>
-		</div>
-		<div class="col-lg-12">
 	        <ol class="breadcrumb">
 	            <li><a class="section" href="/"><i class="circular folder icon"></i>Inicio</a></li>
 	            <i class="right chevron icon divider"></i>
@@ -41,6 +39,7 @@
 		        		<th>Direcion</th>
 		        		<th>eMail</th>
 		        		<th>Teléfonos</th>
+		        		<th>Acciones</th>
 		      		</tr>
 		      	</thead>
 		    	<tbody>
@@ -52,6 +51,9 @@
 		    			<td>{{cliente.direccion}}</td>
 		    			<td>{{cliente.email}}</td>
 		    			<td>{{cliente.telefonos}}</td>
+		    			<td>
+							<button type="button" class="ui labeled icon button" onclick="window.location.href='edit/{{cliente.id}}'"><i class="edit icon"></i>Editar</button>
+						</td>
 		    		</tr>
 		    		{% endfor %}
 		      	</tbody>

@@ -21,12 +21,7 @@
 		<!-- Custom Fonts -->
 		<link href="{% static 'dist/bootstrap-admin/font-awesome/css' %}/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<style type="text/css">
-		table tr[data-href] {
-		    cursor: pointer;
-		}
-		table tr[data-href]:hover { 
-		    background-color: #E6EBFA;
-		}
+			body {background-color: white;}
 		</style>
 	</head>
 	<body>
@@ -156,28 +151,31 @@
 		                    <a href="/"><i class="inverted blue dashboard icon"></i> Inicio</a>
 		                </li>
 		                <li id="clientes">
-		                    <a href="../clientes"><i class="inverted blue users icon"></i> Clientes</a>
+		                    <a href="/clientes"><i class="inverted blue users icon"></i> Clientes</a>
 		                </li>
 		                <li id="productos">
-		                    <a href="../productos"><i class="inverted blue list layout icon"></i> Productos</a>
+		                    <a href="/productos"><i class="inverted blue list layout icon"></i> Productos</a>
 		                </li>
 		                <li id="empleados">
-		                    <a href="../empleados">
+		                    <a href="/empleados">
 		                    <i class="inverted blue users icon"></i> Empleados</a>
 		                </li>
 		                <li id="servicios">
-		                    <a href="../servicios"><i class="inverted blue list layout icon"></i></i> Servicios</a>
+		                    <a href="/servicios"><i class="inverted blue list layout icon"></i></i> Servicios</a>
 		                </li>
 		                <li id="empresas">
-		                    <a href="../empresas"><i class="inverted blue building outline icon"></i> Empresas</a>
+		                    <a href="/empresas"><i class="inverted blue building outline icon"></i> Empresas</a>
 		                </li>
 		                <li id="cotizaciones">
-		                    <a href="../cotizaciones"><i class="inverted blue calculator icon"></i> Cotizaciones</a>
+		                    <a href="/cotizaciones"><i class="inverted blue calculator icon"></i> Cotizaciones</a>
 		                </li>
 		            </ul>
 		        </div>
 		        <!-- /.navbar-collapse -->
 		    </nav>
+			
+			<!-- jQuery -->
+			<script src="{% static 'dist/jquery/jquery-1.11.3.min.js' %}"></script>
 
 		    <div id="page-wrapper">
 
@@ -194,8 +192,6 @@
 
 		    </div>
 
-		<!-- jQuery -->
-		<script src="{% static 'dist/jquery/jquery-1.11.3.min.js' %}"></script>
 
 		<!-- Semantic-UI -->
 		<script src="{% static 'dist/semantic-ui/semantic.min.js' %}"></script>

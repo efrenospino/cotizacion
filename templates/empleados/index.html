@@ -40,6 +40,7 @@
 			    		<th>eMail</th>
 			    		<th>Teléfonos</th>
 			    		<th>Empresa</th>
+			    		<th>Acciones</th>
 			  		</tr>
 			  	</thead>
 				<tbody>
@@ -52,6 +53,9 @@
 						<td>{{empleado.email}}</td>
 						<td>{{empleado.telefonos}}</td>
 						<td>{{empleado.empresa}}</td>
+						<td>
+							<button type="button" class="ui labeled icon button" onclick="window.location.href='edit/{{empleado.id}}'"><i class="edit icon"></i>Editar</button>
+						</td>
 					</tr>
 					{% endfor %}
 			  	</tbody>

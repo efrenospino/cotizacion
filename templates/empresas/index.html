@@ -37,6 +37,7 @@
 			    		<th>Identificación</th>
 			    		<th>Razón social</th>
 			    		<th>Direccion</th>
+			    		<th>Acciones</th>
 			  		</tr>
 			  	</thead>
 				<tbody>
@@ -46,6 +47,9 @@
 						<td>{{empresa.identificacion}}</td>
 						<td>{{empresa.razonSocial}}</td>
 						<td>{{empresa.direccion}}</td>
+						<td>
+							<button type="button" class="ui labeled icon button" onclick="window.location.href='edit/{{empresa.id}}'"><i class="edit icon"></i>Editar</button>
+						</td>
 					</tr>
 					{% endfor %}
 			  	</tbody>

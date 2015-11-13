@@ -38,6 +38,7 @@
 			    		<th>Descripción</th>
 			    		<th>Precio</th>
 			    		<th>Empresa</th>
+			    		<th>Acciones</th>
 			  		</tr>
 			  	</thead>
 				<tbody>
@@ -48,6 +49,9 @@
 						<td>{{servicio.descripcion}}</td>
 						<td>{{servicio.precio}}</td>
 						<td>{{servicio.empresa}}</td>
+						<td>
+							<button type="button" class="ui labeled icon button" onclick="window.location.href='edit/{{servicio.id}}'"><i class="edit icon"></i>Editar</button>
+						</td>
 					</tr>
 					{% endfor %}
 			  	</tbody>

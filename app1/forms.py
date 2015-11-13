@@ -79,4 +79,8 @@ class CotizacionForm(ModelForm):
 class DetalleCotizacionForm(ModelForm):
 	class Meta:
 		model = DetalleCotizacion
-		exclude = ('eliminado', 'subtotal')
+		exclude = ('eliminado', 'subtotal', 'cotizacion', 'idEstadoDetalleCotizacion')
+		widgets = {
+		'producto': Select(attrs={'placeholder': 'Producto', 'class': "ui dropdown"}),
+		'servicio': Select(attrs={'placeholder': 'Servicio', 'class': "ui dropdown"}),
+		'cantidad': NumberInput(attrs={'placeholder': 'Canidad'}),}

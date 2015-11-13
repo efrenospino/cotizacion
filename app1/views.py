@@ -27,6 +27,19 @@ def agregar(request, form, respuesta, modelo):
 	return render_to_response('formulario.html', {'formulario': formulario,
 		'modelo': modelo, 'respuesta': respuesta}, context_instance=RequestContext(request))
 
+def editar(request, form, id, Model, respuesta, modelo):
+	item = Model.objects.get(id=id)
+	if request.method=="POST":
+		formulario = form(request.POST, instance=item)
+		if formulario.is_valid():
+			formulario.save()
+			return HttpResponseRedirect("/"+respuesta)
+	else:
+		formulario = form()
+	return render_to_response('formulario.html', { 'modelo': modelo,
+		'formulario': formulario, 'valores': item, 'respuesta': respuesta },
+		 context_instance=RequestContext(request))
+
 # Vistas para Producto
 
 def productosIndex(request):
@@ -37,15 +50,7 @@ def agregarProducto(request):
 	return agregar(request, ProductoForm, respuesta = "productos", modelo = "Producto")
 
 def editarProducto(request, id):
-	producto = Producto.objects.get(id=id)
-	if request.method=="POST":
-		formulario = ProductoForm(request.POST, instance=producto)
-		if formulario.is_valid():
-			formulario.save()
-			return HttpResponseRedirect("/productos")
-	else:
-		formulario = ProductoForm()
-	return render_to_response('productos/formulario.html', {'formulario': formulario}, context_instance=RequestContext(request))
+	return editar(request, ProductoForm, id, Producto, respuesta = "productos", modelo = "Producto")
 
 # Vistas para Servicio
 
@@ -56,6 +61,9 @@ def serviciosIndex(request):
 def agregarServicio(request):
 	return agregar(request, ServicioForm, respuesta = "servicios", modelo = "Servicio")
 
+def editarServicio(request, id):
+	return editar(request, ServicioForm, id, Servicio, respuesta = "servicios", modelo = "Servicio")
+
 # Vistas para Cliente
 
 def clientesIndex(request):
@@ -64,6 +72,9 @@ def clientesIndex(request):
 
 def agregarCliente(request):
 	return agregar(request, ClienteForm, respuesta = "clientes", modelo = "Cliente")	
+
+def editarCliente(request, id):
+	return editar(request, ClienteForm, id, Cliente, respuesta = "clientes", modelo = "Cliente")
 
 # Vistas para Empleado
 
@@ -74,6 +85,9 @@ def empleadosIndex(request):
 def agregarEmpleado(request):
 	return agregar(request, EmpleadoForm, respuesta = "empleados", modelo = "Empleado")
 
+def editarEmpleado(request, id):
+	return editar(request, EmpleadoForm, id, Empleado, respuesta = "empleados", modelo = "Empleado")
+
 # Vistas para Empresa
 
 def empresasIndex(request):
@@ -82,6 +96,9 @@ def empresasIndex(request):
 
 def agregarEmpresa(request):
 	return agregar(request, EmpresaForm, respuesta = "empresas", modelo = "Empresa")
+
+def editarEmpresa(request, id):
+	return editar(request, EmpresaForm, id, Empresa, respuesta = "empresas", modelo = "Empresa")
 
 # Vistas para Cotizacion
 
@@ -95,4 +112,17 @@ def verCotizacion(request, id):
 	return render_to_response('cotizaciones/detalle.html', {'cotizacion': elemento, 'detalles': detalles})
 
 def agregarCotizacion(request):
-	return agregar(request, CotizacionForm, respuesta = "cotizaciones", modelo = "Cotizacion")
+	if request.method=="POST":
+		masterForm = CotizacionForm(request.POST, request.FILES)
+		detailForm = DetalleCotizacionForm(request.POST, request.FILES)
+		if masterForm.is_valid():
+			masterForm.save()
+			if detailForm.is_valid():
+				detailForm.save()
+				return HttpResponseRedirect("/cotizaciones")
+	else:
+		masterForm = CotizacionForm()
+		detailForm = DetalleCotizacionForm()
+	return render_to_response('cotizaciones/form.html', {'masterForm': masterForm,
+		'detailForm': detailForm, 'modelo': "Cotizacion", 'respuesta': "cotizaciones"}, 
+		context_instance=RequestContext(request))

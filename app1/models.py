@@ -9,6 +9,10 @@ class Producto(models.Model):
     idEstadoProducto = models.PositiveIntegerField()
     eliminado = models.BooleanField(default=False)
 
+
+    def get_fields(self):
+        return [(field.name, field.value_to_string(self)) for field in Producto._meta.fields]
+
     def __str__(self):
         return self.nombre
 
@@ -19,6 +23,10 @@ class Servicio(models.Model):
     empresa = models.ForeignKey('Empresa')
     idEstadoServicio = models.PositiveIntegerField()
     eliminado = models.BooleanField(default=False)
+    
+    def get_fields(self):
+        return [(field.name, field.value_to_string(self)) for field in Servicio._meta.fields]
+
     def __str__(self):
         return self.nombre
 
@@ -30,6 +38,9 @@ class Cotizacion(models.Model):
     total = models.FloatField()
     idEstadoCotizacion = models.PositiveIntegerField()
     eliminado = models.BooleanField(default=False)
+
+    def get_fields(self):
+        return [(field.name, field.value_to_string(self)) for field in Cotizacion._meta.fields]
 
     def _cotizacionItems(self):
         return set(detalleCotizacion.subtotal for detalleCotizacion in 
@@ -53,7 +64,7 @@ class DetalleCotizacion(models.Model):
     producto = models.ForeignKey('Producto', blank=True, null=True)
     servicio = models.ForeignKey('Servicio', blank=True, null=True)
     cantidad = models.PositiveIntegerField(blank=True, null=True)
-
+    
     def _get_subtotal(self):
         return self.cantidad*self.producto.precio
             
@@ -74,6 +85,9 @@ class Cliente(models.Model):
     empresa = models.ForeignKey('Empresa')
     eliminado = models.BooleanField(default=False)
 
+    def get_fields(self):
+        return [(field.name, field.value_to_string(self)) for field in Cliente._meta.fields]
+
     def __str__(self):
         if self.nombres <>'' and self.apellidos <>'':
             return "%s %s"  % (self.nombres,self.apellidos)
@@ -92,6 +106,9 @@ class Empleado(models.Model):
     telefonos = models.CharField(max_length=100, blank=True)
     eliminado = models.BooleanField(default=False)
 
+    def get_fields(self):
+        return [(field.name, field.value_to_string(self)) for field in Empleado._meta.fields]
+
     def __str__(self):
         return "%s %s"  % (self.nombres,self.apellidos)
 
@@ -101,6 +118,9 @@ class Empresa(models.Model):
     direccion = models.CharField(max_length=100, blank=True)
     idEstadoEmpresa = models.PositiveIntegerField()
     eliminado = models.BooleanField(default=False)
+
+    def get_fields(self):
+        return [(field.name, field.value_to_string(self)) for field in Empresa._meta.fields]
 
     def __str__(self):
         return self.razonSocial

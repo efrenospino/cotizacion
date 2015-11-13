@@ -29,15 +29,19 @@ urlpatterns = [
 
     url(r'^servicios/$', views.serviciosIndex),
     url(r'^servicios/add$', views.agregarServicio),
+    url(r'^servicios/edit/(?P<id>\d+)/$', views.editarServicio),
 
     url(r'^clientes/$', views.clientesIndex),
     url(r'^clientes/add$', views.agregarCliente),    
+    url(r'^clientes/edit/(?P<id>\d+)/$', views.editarCliente),
 
     url(r'^empleados/$', views.empleadosIndex),    
     url(r'^empleados/add$', views.agregarEmpleado),
+    url(r'^empleados/edit/(?P<id>\d+)/$', views.editarEmpleado),
 
     url(r'^empresas/$', views.empresasIndex),
     url(r'^empresas/add$', views.agregarEmpresa),
+    url(r'^empresas/edit/(?P<id>\d+)/$', views.editarEmpresa),
 
     url(r'^cotizaciones/$', views.cotizacionesIndex),
     url(r'^cotizaciones/(?P<id>\d+)', views.verCotizacion),
