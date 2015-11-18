@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
+
+	<!--<script type="text/javascript">$('.url.example .ui.embed').embed();</script>-->
 	
 	<div class="row">
 	    <div class="col-lg-12">
 	        <h1 class="page-header">
 	            {{ modelo }}
-	            <small>Agregar una nueva {{ modelo }}</small>
+	            <small>Agregar un nuevo {{ modelo }}</small>
 	        </h1>
 	        <ol class="breadcrumb">
 	            <li><a class="section" href="/"><i class="circular folder icon"></i>Inicio</a></li>
@@ -17,84 +19,63 @@
 	    </div>
 	    <div class="col-lg-8">
 	    	<div class="ui form">
-	    	{% if masterForm %}
-	    		{% if masterForm.errors %}
+	    	{% if formulario %}
+	    		{% if formulario.errors %}
+
 		    		<div class="ui negative message">
 			    	    <div class="header">Encontramos algunos problemas</div>
 			    	    <ul class="list">
-			    	        {% for error in masterForm.errors %}
+			    	        {% for error in formulario.errors %}
 			    	            <li>El campo <b>{{ error }}</b> es requerido.</li>
 			    	        {% endfor %}
 			    	    </ul>
 			    	</div>
 		    	{% endif %}
-
-			    <form id="masterForm" method="post" enctype="multipart/form-data" action="">
-
-			    	<h4 class="ui dividing header">Informacion basica</h4>
+			    <form id="formulario" method="post" enctype="multipart/form-data" action="">
 
 			    	{% csrf_token %}
 			    	
-			    	{% for campo in masterForm %}
+			    	{% for campo in formulario %}
 			    	 	<div class="field"><label>{{campo.label}}</label> {{campo}} </div>
 			    	{% endfor %}
-			    	<h4 class="ui dividing header">Items</h4>
-			    	<div class="twelve wide stretched column">
-			    	    <div class="ui segment">
-			    	        <div class="ui form">
-			    	        	<form id="detailForm" method="post" enctype="multipart/form-data" action="">
-			    	    	    	{% csrf_token %}
-			    	    	    	<div class="three fields">
-			    	    		    	{% for campo in detailForm %}
-			    	    		    	 	<div class="field"><label>{{campo.label}}</label> {{campo}} </div>
-			    	    		    	{% endfor %}
-			    	    	    	</div>
-			    	    	    </form>
-			    	        </div>
-			    	        <br>
-			    		    <div class="ui form">
-			    		    	<form id="detailForm" method="post" enctype="multipart/form-data" action="">
-			    			    	{% csrf_token %}
-			    			    	<div class="three fields">
-			    				    	{% for campo in detailForm %}
-			    				    	 	<div class="field"><label>{{campo.label}}</label> {{campo}} </div>
-			    				    	{% endfor %}
-			    			    	</div>
-			    			    </form>
-			    		    </div>
-			    		    <br>
-			    	        <div class="ui form">
-			    	        	<form id="detailForm" method="post" enctype="multipart/form-data" action="">
-			    	    	    	{% csrf_token %}
-			    	    	    	<div class="three fields">
-			    	    		    	{% for campo in detailForm %}
-			    	    		    	 	<div class="field"><label>{{campo.label}}</label> {{campo}} </div>
-			    	    		    	{% endfor %}
-			    	    	    	</div>
-			    	    	    </form>
-			    	        </div>
-			    	        <br>
-			    	        <button class="ui labeled icon button"><i class="add icon"></i> Agregar elemento adicional </button>
-			    	    </div>
-			    	</div>
-			    	<br>
-		    		<div class="ui buttons">
-		    			<input type="button" class="ui button" value="Cancelar" onclick="window.location.href='/{{respuesta}}'">
-		    		  	<div class="or" data-text="o"></div>
-		    		  	<input type="submit" class="ui positive button" value="Confirmar">
-		    		</div>
-				</form>
+			    	<!--{{formulario.as_p}}-->
+			    	<p>
+			    		
+			    		<div class="ui buttons">
+			    		  <input type="button" class="ui button" value="Cancelar" onclick="window.location.href='/{{respuesta}}'">
+			    		  <div class="or" data-text="o"></div>
+			    		  <input type="submit" class="ui positive button" value="Confirmar">
+			    		</div>
+			    	</p>
+
+			    </form>
 		    {% endif %}
 		    </div>
 	    </div>
+	    <div class="col-lg-4">
+	    	<h4 class="ui horizontal divider header"><i class="tag icon"></i> Descripcion </h4>
+	    	<div class="ui celled list">
+	    		{% for name, value in valores.get_fields %}
+		    		<div class="item">
+		    			<div class="content">
+							<div class="header">
+			    				{{ name }}
+			    			</div>
+			    			{{ value }}
+						</div>
+		    		</div>
+		    	{% endfor %}
+	    	</div>
+	    </div>
 	</div>
+
+	<br>
+
+	
+
 
 	<script type="text/javascript">
 		document.getElementById('{{respuesta}}').className = 'active';
-	</script>
-
-	<script type="text/javascript">
-		
 	</script>
 
 {% endblock content %}

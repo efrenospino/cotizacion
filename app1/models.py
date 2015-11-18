@@ -5,8 +5,7 @@ class Producto(models.Model):
     descripcion = models.CharField(max_length=255, blank=True)
     idUnidad = models.PositiveIntegerField()
     precio = models.FloatField()
-    empresa = models.ForeignKey('Empresa')
-    idEstadoProducto = models.PositiveIntegerField()
+    idEstadoProducto = models.PositiveIntegerField(default=1)
     eliminado = models.BooleanField(default=False)
 
 
@@ -20,10 +19,9 @@ class Servicio(models.Model):
     nombre = models.CharField(max_length=100)
     descripcion = models.CharField(max_length=255, blank=True)
     precio = models.FloatField()
-    empresa = models.ForeignKey('Empresa')
-    idEstadoServicio = models.PositiveIntegerField()
+    idEstadoServicio = models.PositiveIntegerField(default=1)
     eliminado = models.BooleanField(default=False)
-    
+
     def get_fields(self):
         return [(field.name, field.value_to_string(self)) for field in Servicio._meta.fields]
 
@@ -33,43 +31,51 @@ class Servicio(models.Model):
 class Cotizacion(models.Model):
     fecha = models.DateField(auto_now_add=True)
     cliente = models.ForeignKey('Cliente')
-    empresa = models.ForeignKey('Empresa')
     empleado = models.ForeignKey('Empleado')
     total = models.FloatField()
-    idEstadoCotizacion = models.PositiveIntegerField()
+    idEstadoCotizacion = models.PositiveIntegerField(default=1)
     eliminado = models.BooleanField(default=False)
 
     def get_fields(self):
         return [(field.name, field.value_to_string(self)) for field in Cotizacion._meta.fields]
 
-    def _cotizacionItems(self):
-        return set(detalleCotizacion.subtotal for detalleCotizacion in 
-            DetalleCotizacion.objects.filter(cotizacion=self.id))
+    #def _cotizacionItems(self):
+    #    return DetalleCotizacion.objects.filter(cotizacion=self.id)
+        #return set(detalleCotizacion.subtotal for detalleCotizacion in
+        #    DetalleCotizacion.objects.filter(cotizacion=self.id))
 
-    items = property(_cotizacionItems)
+    #items = property(_cotizacionItems)
 
     def _calcularTotal(self):
         t = 0
-        for item in self.items:
-            t = t + item
+        items = DetalleCotizacion.objects.filter(cotizacion=self.id, eliminado=False)
+        for item in items:
+            t = t + item.subtotal
         return t
-    
+
     total = property(_calcularTotal)
 
     def __str__(self):
         return str(self.id)
 
 class DetalleCotizacion(models.Model):
-    cotizacion = models.ForeignKey('Cotizacion')
-    producto = models.ForeignKey('Producto', blank=True, null=True)
-    servicio = models.ForeignKey('Servicio', blank=True, null=True)
+    cotizacion = models.ForeignKey('Cotizacion', limit_choices_to={'eliminado': False})
+    producto = models.ForeignKey(
+        'Producto', limit_choices_to={'eliminado': False}, blank=True, null=True)
+    servicio = models.ForeignKey(
+        'Servicio', limit_choices_to={'eliminado': False}, blank=True, null=True)
     cantidad = models.PositiveIntegerField(blank=True, null=True)
-    
+
     def _get_subtotal(self):
-        return self.cantidad*self.producto.precio
-            
-    subtotal = property(_get_subtotal)  
-    idEstadoDetalleCotizacion = models.PositiveIntegerField()
+        total = 0
+        if self.servicio is not None:
+            total = self.servicio.precio
+        else:
+            total = self.cantidad*self.producto.precio
+        return total
+
+    subtotal = property(_get_subtotal)
+    idEstadoDetalleCotizacion = models.PositiveIntegerField(default=1)
     eliminado = models.BooleanField(default=False)
 
 class Cliente(models.Model):
@@ -80,9 +86,8 @@ class Cliente(models.Model):
     apellidos = models.CharField(max_length=100, blank=True)
     email = models.EmailField(max_length=100, blank=True)
     direccion = models.CharField(max_length=100, blank=True)
-    idEstadoCliente = models.PositiveIntegerField()
+    idEstadoCliente = models.PositiveIntegerField(default=1)
     telefonos = models.CharField(max_length=100, blank=True)
-    empresa = models.ForeignKey('Empresa')
     eliminado = models.BooleanField(default=False)
 
     def get_fields(self):
@@ -101,8 +106,7 @@ class Empleado(models.Model):
     apellidos = models.CharField(max_length=100, blank=True)
     email = models.EmailField(max_length=100, blank=True)
     direccion = models.CharField(max_length=100, blank=True)
-    idEstadoEmpleado = models.PositiveIntegerField()
-    empresa = models.ForeignKey('Empresa')
+    idEstadoEmpleado = models.PositiveIntegerField(default=1)
     telefonos = models.CharField(max_length=100, blank=True)
     eliminado = models.BooleanField(default=False)
 
@@ -111,19 +115,6 @@ class Empleado(models.Model):
 
     def __str__(self):
         return "%s %s"  % (self.nombres,self.apellidos)
-
-class Empresa(models.Model):
-    identificacion = models.CharField(max_length=15)
-    razonSocial = models.CharField(max_length=200, blank=True)
-    direccion = models.CharField(max_length=100, blank=True)
-    idEstadoEmpresa = models.PositiveIntegerField()
-    eliminado = models.BooleanField(default=False)
-
-    def get_fields(self):
-        return [(field.name, field.value_to_string(self)) for field in Empresa._meta.fields]
-
-    def __str__(self):
-        return self.razonSocial
 
 class Parametro(models.Model):
     atributo = models.CharField(max_length=50)

@@ -1,20 +1,6 @@
-{% extends "base.html" %}
-{% block content %}
-
+	{% extends  "cotizaciones/detalle.html" %}
+	{% block form %}
 	<div class="row">
-	    <div class="col-lg-12">
-	        <h1 class="page-header">
-	            {{ modelo }}
-	            <small>Agregar un nuevo {{ modelo }}</small>
-	        </h1>
-	        <ol class="breadcrumb">
-	            <li><a class="section" href="/"><i class="circular folder icon"></i>Inicio</a></li>
-	            <i class="right chevron icon divider"></i>
-	            <li><a class="section" href="/{{respuesta}}"><i class="circular folder icon"></i>{{modelo}}</a></li>
-	            <i class="right chevron icon divider"></i>
-	            <li class="active"><i class="circular folder open icon"></i> Nuevo</li>
-	        </ol>
-	    </div>
 	    <div class="col-lg-8">
 	    	<div class="ui form">
 	    	{% if formulario %}
@@ -39,11 +25,10 @@
 			    	<!--{{formulario.as_p}}-->
 			    	<p>
 
-			    		<div class="ui buttons">
-			    		  <input type="button" class="ui button" value="Cancelar" onclick="window.location.href='/{{respuesta}}'">
-			    		  <div class="or" data-text="o"></div>
+
 			    		  <input type="submit" class="ui positive button" value="Confirmar">
-			    		</div>
+								<input type="button" class="ui primary button" value="Finalizar" onclick="window.location.href='/{{respuesta}}'">
+			    		
 			    	</p>
 
 			    </form>
@@ -52,9 +37,11 @@
 	    </div>
 	</div>
 
+	<br>
+
 
 	<script type="text/javascript">
 		document.getElementById('{{respuesta}}').className = 'active';
 	</script>
 
-{% endblock content %}
+	{%endblock form%}

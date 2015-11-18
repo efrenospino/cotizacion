@@ -24,27 +24,33 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^productos/$', views.productosIndex),
+    url(r'^productos/(?P<id>\d+)/$', views.verProducto),
     url(r'^productos/add$', views.agregarProducto),
     url(r'^productos/edit/(?P<id>\d+)/$', views.editarProducto),
+    url(r'^productos/delete/(?P<id>\d+)/$', views.eliminarProducto),
 
     url(r'^servicios/$', views.serviciosIndex),
+    url(r'^servicios/(?P<id>\d+)/$', views.verServicio),
     url(r'^servicios/add$', views.agregarServicio),
     url(r'^servicios/edit/(?P<id>\d+)/$', views.editarServicio),
+    url(r'^servicios/delete/(?P<id>\d+)/$', views.eliminarServicio),
 
     url(r'^clientes/$', views.clientesIndex),
-    url(r'^clientes/add$', views.agregarCliente),    
+    url(r'^clientes/add$', views.agregarCliente),
     url(r'^clientes/edit/(?P<id>\d+)/$', views.editarCliente),
+    url(r'^clientes/delete/(?P<id>\d+)/$', views.eliminarCliente),
 
-    url(r'^empleados/$', views.empleadosIndex),    
+    url(r'^empleados/$', views.empleadosIndex),
     url(r'^empleados/add$', views.agregarEmpleado),
     url(r'^empleados/edit/(?P<id>\d+)/$', views.editarEmpleado),
-
-    url(r'^empresas/$', views.empresasIndex),
-    url(r'^empresas/add$', views.agregarEmpresa),
-    url(r'^empresas/edit/(?P<id>\d+)/$', views.editarEmpresa),
+    url(r'^empleados/delete/(?P<id>\d+)/$', views.eliminarEmpleado),
 
     url(r'^cotizaciones/$', views.cotizacionesIndex),
-    url(r'^cotizaciones/(?P<id>\d+)', views.verCotizacion),
+    url(r'^cotizaciones/(?P<id>\d+)$', views.verCotizacion),
     url(r'^cotizaciones/add$', views.agregarCotizacion),
+    url(r'^cotizaciones/add-detail/(?P<id>\d+)$', views.agregarDetalleCotizacion),
+    url(r'^cotizaciones/delete/(?P<id>\d+)/$', views.eliminarCotizacion),
+    url(r'^cotizaciones/detalle/delete/(?P<id>\d+)/$', views.eliminarDetalleCotizacion),
+    url(r'^cotizaciones/detalle/edit/(?P<id>\d+)/$', views.editarDetalleCotizacion),
 
 ]

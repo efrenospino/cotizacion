@@ -52,8 +52,9 @@
 		    			<td>{{cliente.email}}</td>
 		    			<td>{{cliente.telefonos}}</td>
 		    			<td>
-							<button type="button" class="ui labeled icon button" onclick="window.location.href='edit/{{cliente.id}}'"><i class="edit icon"></i>Editar</button>
-						</td>
+								<button type="button" class="ui icon button" onclick="window.location.href='edit/{{cliente.id}}'"><i class="edit icon"></i></button>
+								<button type="button" class="ui icon button" onclick="window.location.href='delete/{{cliente.id}}'"><i class="remove icon"></i></button>
+							</td>
 		    		</tr>
 		    		{% endfor %}
 		      	</tbody>

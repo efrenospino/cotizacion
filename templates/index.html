@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-	
+
 	<script type="text/javascript">
 		document.getElementById('inicio').className = 'active';
 	</script>
@@ -33,7 +33,7 @@
 		                </div>
 		            </div>
 		        </div>
-		        <a href="../cotizaciones">
+		        <a href="cotizaciones">
 		            <div class="panel-footer">
 		                <span class="pull-left">Ver más...</span>
 		                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -55,7 +55,7 @@
 		                </div>
 		            </div>
 		        </div>
-		        <a href="../productos">
+		        <a href="productos">
 		            <div class="panel-footer">
 		                <span class="pull-left">Ver más...</span>
 		                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -77,7 +77,7 @@
 		                </div>
 		            </div>
 		        </div>
-		        <a href="../servicios">
+		        <a href="servicios">
 		            <div class="panel-footer">
 		                <span class="pull-left">Ver más...</span>
 		                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -101,7 +101,7 @@
 		                </div>
 		            </div>
 		        </div>
-		        <a href="../clientes">
+		        <a href="clientes">
 		            <div class="panel-footer">
 		                <span class="pull-left">Ver más...</span>
 		                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -123,7 +123,7 @@
 		                </div>
 		            </div>
 		        </div>
-		        <a href="../empleados">
+		        <a href="empleados">
 		            <div class="panel-footer">
 		                <span class="pull-left">Ver más...</span>
 		                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -131,29 +131,7 @@
 		            </div>
 		        </a>
 		    </div>
-		</div>
-		<div class="col-lg-4 col-md-4">
-		    <div class="panel panel-primary">
-		        <div class="panel-heading">
-		            <div class="row">
-		                <div class="col-xs-3">
-		                    <i class="huge building outline icon"></i>
-		                </div>
-		                <div class="col-xs-9 text-right">
-		                    <div class="huge">{{ empresas|length }}</div>
-		                    <div>Empresas!</div>
-		                </div>
-		            </div>
-		        </div>
-		        <a href="../empresas">
-		            <div class="panel-footer">
-		                <span class="pull-left">Ver más...</span>
-		                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-		                <div class="clearfix"></div>
-		            </div>
-		        </a>
-		    </div>
-		</div>
+		</div>		
 	</div>
 
 {% endblock content %}

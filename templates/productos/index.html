@@ -38,21 +38,20 @@
 			    		<th>Descripción</th>
 			    		<th>Unidad</th>
 			    		<th>Precio</th>
-			    		<th>Empresa</th>
 			    		<th>Acciones</th>
 			  		</tr>
 			  	</thead>
 				<tbody>
 					{% for producto in productos %}
-					<tr>					
+					<tr>
 						<td>{{producto.id}}</td>
 						<td>{{producto.nombre}}</td>
 						<td>{{producto.descripcion}}</td>
 						<td>{{producto.idUnidad}}</td>
 						<td>{{producto.precio}}</td>
-						<td>{{producto.empresa}}</td>
 						<td>
-							<button type="button" class="ui labeled icon button" onclick="window.location.href='edit/{{producto.id}}'"><i class="edit icon"></i>Editar</button>
+							<button type="button" class="ui icon button" onclick="window.location.href='edit/{{producto.id}}'"><i class="edit icon"></i></button>
+							<button type="button" class="ui icon button" onclick="window.location.href='delete/{{producto.id}}'"><i class="remove icon"></i></button>
 						</td>
 					</tr>
 					{% endfor %}

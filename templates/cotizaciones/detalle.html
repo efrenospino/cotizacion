@@ -4,7 +4,7 @@
 	<script type="text/javascript">
 		document.getElementById('cotizaciones').className = 'active';
 	</script>
-	
+
 	<div class="row">
 		<div class="col-lg-12">
 		    <h1 class="page-header">
@@ -25,9 +25,9 @@
 			    	<tr>
 			    		<th>Código</th>
 			    		<th>Fecha</th>
-			    		<th>Empresa</th>
 			    		<th>Cliente</th>
 			    		<th>Empleado</th>
+							<th>Eliminado</th>
 			    		<th>Total</th>
 			  		</tr>
 			  	</thead>
@@ -35,9 +35,9 @@
 					<tr>
 						<td>{{cotizacion.id}}</td>
 						<td>{{cotizacion.fecha}}</td>
-						<td>{{cotizacion.empresa}}</td>
 						<td>{{cotizacion.cliente}}</td>
 						<td>{{cotizacion.empleado}}</td>
+						<td>{{cotizacion.eliminado}}</td>
 						<td>{{cotizacion.total}}</td>
 					</tr>
 			  	</tbody>
@@ -46,23 +46,42 @@
 			<table class="ui blue celled table">
 				<thead>
 			    	<tr>
+			    		<th>Estado</th>
 			    		<th>Producto</th>
 			    		<th>Servicio</th>
 			    		<th>Cantidad</th>
 			    		<th>Subtotal</th>
+							<th>Eliminado</th>
+							<th>Acciones</th>
 			  		</tr>
 			  	</thead>
 				<tbody>
 					{% for detalle in detalles %}
 					<tr>
-						<td>{{detalle.producto}}</td>
-						<td>{{detalle.servicio}}</td>
+						<td>{{detalle.idEstadoDetalleCotizacion}}</td>
+						<td><a href="/productos/{{detalle.producto.id}}">{{detalle.producto}}</a></td>
+						<td><a href="/servicios/{{detalle.servicio.id}}">{{detalle.servicio}}</td>
 						<td>{{detalle.cantidad}}</td>
 						<td>{{detalle.subtotal}}</td>
+						<td>{{detalle.eliminado}}</td>
+						<td>
+							<button type="button" class="ui icon button" onclick="window.location.href='detalle/edit/{{detalle.id}}'"><i class="edit icon"></i></button>
+							<button type="button" class="ui icon button" onclick="window.location.href='detalle/delete/{{detalle.id}}'"><i class="remove icon"></i></button>
+						</td>
 					</tr>
 					{% endfor %}
 			  	</tbody>
 			</table>
 		</div>
 	</div>
+	<br>
+	<div class="row">
+	    <div class="col-lg-12">
+			{% block form %}
+
+		    {% endblock form %}
+	    </div>
+	</div>
+
+
 {% endblock content %}

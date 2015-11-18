@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+
+	<script type="text/javascript">
+		document.getElementById('{{modelo}}').className = 'active';
+	</script>
+
+	<div class="row">
+	    <div class="col-lg-12">
+	        <h1 class="page-header">
+	            {{modelo|title}}
+	        </h1>
+	        <ol class="breadcrumb">
+	            <li><a class="section" href="/"><i class="circular folder icon"></i>Inicio</a></li>
+	            <i class="right chevron icon divider"></i>
+	            <li><a class="section" href="/{{modelo}}"><i class="circular folder icon"></i>{{modelo|title}}</a></li>
+							<i class="right chevron icon divider"></i>
+	            <li class="active"><i class="circular folder open icon"></i> Ver</li>
+	        </ol>
+	    </div>
+	    <div class="col-lg-12">
+	        <ul class="list-unstyled">
+		        <li class="active">
+		        	<div class="ui labeled button" tabindex="0">
+	          			<div class="positive ui button"  onclick="window.location.href='{{resp}}/add'"><i class="add icon"></i> Agregar </div>
+	          			<a class="ui basic green left pointing label">
+	            			{{modelo|length}}
+	          			</a>
+	        		</div>
+	        	</li>
+	        </ul>
+	    </div>
+	    <div class="col-lg-12">
+			<table class="ui blue celled table">
+				<thead>
+			    	<tr>
+							{% for name, value in elemento.get_fields %}
+			    		<th>{{name|upper}}</th>
+							{% endfor %}
+			    		<th>ACCIONES</th>
+			  		</tr>
+			  	</thead>
+				<tbody>
+
+					<tr>
+						{% for name, value in elemento.get_fields %}
+						<td>{{value}}</td>
+						{% endfor %}
+						<td>
+							<button type="button" class="ui icon button" onclick="window.location.href='/{{modelo}}/edit/{{elemento.id}}'"><i class="edit icon"></i></button>
+							<button type="button" class="ui icon button" onclick="window.location.href='/{{modelo}}delete/{{elemento.id}}'"><i class="remove icon"></i></button>
+						</td>
+					</tr>
+
+			  	</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock content %}
