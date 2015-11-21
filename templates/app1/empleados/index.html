@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "app1/base.html" %}
 {% block content %}
 
 	<script type="text/javascript">
@@ -21,8 +21,8 @@
 	        <ul class="list-unstyled">
 		        <li class="active">
 		        	<div class="ui labeled button" tabindex="0">
-	          			<div class="positive ui button"  onclick="window.location.href='add'"><i class="add icon"></i> Agregar </div>
-	          			<a class="ui basic green left pointing label">
+	          			<div class="blue ui button"  onclick="window.location.href='add'"><i class="add icon"></i> Nuevo </div>
+	          			<a class="ui basic blue left pointing label">
 	            			{{empleados|length}}
 	          			</a>
 	        		</div>
@@ -30,30 +30,31 @@
 	        </ul>
 	    </div>
 	    <div class="col-lg-12">
-			<table class="ui blue celled table">
+			<table class="ui selectable celled table">
 				<thead>
 			    	<tr>
 			    		<th>Código</th>
 			    		<th>Identificación</th>
-			    		<th>Nombre</th>
+							<th>Nombre de usuario</th>
 			    		<th>Direcion</th>
-			    		<th>eMail</th>
 			    		<th>Teléfonos</th>
 			    		<th>Acciones</th>
 			  		</tr>
 			  	</thead>
 				<tbody>
-					{% for empleado in empleados %}
+					{% for empleado, usuario in data %}
 					<tr>
-						<td>{{empleado.id}}</td>
+						<td width="30">{{empleado.id}}</td>
 						<td>{{empleado.identificacion}}</td>
-						<td>{{empleado}}</td>
+						<td>{{usuario.username}}</td>
 						<td>{{empleado.direccion}}</td>
-						<td>{{empleado.email}}</td>
 						<td>{{empleado.telefonos}}</td>
 						<td>
-							<button type="button" class="ui icon button" onclick="window.location.href='edit/{{empleado.id}}'"><i class="edit icon"></i></button>
-							<button type="button" class="ui icon button" onclick="window.location.href='delete/{{empleado.id}}'"><i class="remove icon"></i></button>
+							<div class="ui buttons">
+								<button type="button" class="ui default icon button" onclick="window.location.href='{{empleado.id}}'"><i class="external icon"></i></button>
+								<button type="button" class="ui yellow icon button" onclick="window.location.href='edit/{{empleado.id}}'"><i class="edit icon"></i></button>
+								<button type="button" class="ui negative icon button" onclick="window.location.href='delete/{{empleado.id}}'"><i class="remove icon"></i></button>
+							</div>
 						</td>
 					</tr>
 					{% endfor %}

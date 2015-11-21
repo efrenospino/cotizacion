@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "app1/base.html" %}
 {% block content %}
 
 	<div class="row">
@@ -42,12 +42,10 @@
 			    	{% endfor %}
 			    	<!--{{formulario.as_p}}-->
 			    	<p>
-
-			    		<div class="ui buttons">
-			    		  <input type="button" class="ui button" value="Cancelar" onclick="window.location.href='/{{respuesta}}'">
-			    		  <div class="or" data-text="o"></div>
+							<button type="button" class="ui basic icon button" onclick="window.location.href='/{{respuesta}}'">
+								<i class="arrow left icon"></i> Cancelar
+							</button>
 			    		  <input type="submit" class="ui positive button" value="Confirmar">
-			    		</div>
 			    	</p>
 
 			    </form>

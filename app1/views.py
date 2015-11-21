@@ -1,23 +1,25 @@
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required, user_passes_test
 from app1.models import *
 from app1.forms import *
 
+@login_required(login_url='/login/')
 def home(request):
 	cotizaciones = Cotizacion.objects.filter(eliminado=False)
 	productos = Producto.objects.filter(eliminado=False)
 	servicios = Servicio.objects.filter(eliminado=False)
 	empleados = Empleado.objects.filter(eliminado=False)
 	clientes = Cliente.objects.filter(eliminado=False)
-	return render_to_response('index.html', {
+	return render_to_response('app1/index.html', {
 		'cotizaciones': cotizaciones, 'productos': productos,
-		'servicios': servicios, 'empleados': empleados, 'clientes': clientes});
+		'servicios': servicios, 'empleados': empleados, 'clientes': clientes,},
+		context_instance=RequestContext(request));
 
-def ver(request, id, Modelo, resp):
-	elemento = get_object_or_404(Modelo.objects.filter(eliminado=False), id=id)
-	return render_to_response('ver.html', {'elemento': elemento, "modelo": resp})
-
+@login_required(login_url='/login/')
 def agregar(request, form, respuesta, modelo):
 	if request.POST:
 		formulario = form(request.POST)
@@ -26,9 +28,20 @@ def agregar(request, form, respuesta, modelo):
 			return HttpResponseRedirect("/"+respuesta)
 	else:
 		formulario = form()
-	return render_to_response('formulario.html', {'formulario': formulario,
+	return render_to_response('app1/formulario.html', {'formulario': formulario,
 		'modelo': modelo, 'respuesta': respuesta}, context_instance=RequestContext(request))
 
+@login_required(login_url='/login/')
+def ver(request, form, id, Model, respuesta, modelo):
+	item = get_object_or_404(Model, id=id)
+	formulario = form(instance=item)
+	for campo in formulario.fields:
+		formulario.fields[campo].widget.attrs['disabled'] = True
+	return render_to_response('app1/formulario.html', { 'modelo': modelo,
+		'formulario': formulario, 'respuesta': respuesta,  'id': id},
+		 context_instance=RequestContext(request))
+
+@login_required(login_url='/login/')
 def editar(request, form, id, Model, respuesta, modelo):
 	item = get_object_or_404(Model, id=id)
 	if request.POST:
@@ -39,10 +52,11 @@ def editar(request, form, id, Model, respuesta, modelo):
 			return HttpResponseRedirect("/"+respuesta)
 	else:
 		formulario = form(instance=item)
-	return render_to_response('formulario.html', { 'modelo': modelo,
-		'formulario': formulario, 'respuesta': respuesta },
+	return render_to_response('app1/formulario.html', { 'modelo': modelo,
+		'formulario': formulario, 'respuesta': respuesta},
 		 context_instance=RequestContext(request))
 
+@login_required(login_url='/login/')
 def eliminar(request, form, id, Model, respuesta, modelo):
 	item = get_object_or_404(Model, id=id)
 	if request.POST:
@@ -53,87 +67,140 @@ def eliminar(request, form, id, Model, respuesta, modelo):
 			return HttpResponseRedirect("/"+respuesta)
 	else:
 		formulario = form(instance=item)
-	return render_to_response('confirmar.html', { 'modelo': modelo,
+	return render_to_response('app1/confirmar.html', { 'modelo': modelo,
 		'formulario': formulario, 'respuesta': respuesta },
 		 context_instance=RequestContext(request))
 
 # Vistas para Producto
 
+@login_required(login_url='/login/')
 def productosIndex(request):
 	listado = Producto.objects.filter(eliminado=False)
-	return render_to_response('productos/index.html', {'productos': listado})
+	return render_to_response('app1/productos/index.html', {'productos': listado},
+		context_instance=RequestContext(request))
 
+@login_required(login_url='/login/')
 def verProducto(request, id):
-	return ver(request, id, Producto, "productos")
+	return ver(request, ProductoForm, id, Producto, respuesta = "productos", modelo = "Producto")
 
+@login_required(login_url='/login/')
+@user_passes_test(lambda u:u.is_staff, login_url='/login/')
 def agregarProducto(request):
 	return agregar(request, ProductoForm, respuesta = "productos", modelo = "Producto")
 
+@user_passes_test(lambda u:u.is_staff, login_url='/login/')
+@login_required(login_url='/login/')
 def editarProducto(request, id):
 	return editar(request, ProductoForm, id, Producto, respuesta = "productos", modelo = "Producto")
 
+@user_passes_test(lambda u:u.is_staff, login_url='/login/')
+@login_required(login_url='/login/')
 def eliminarProducto(request, id):
 	return eliminar(request, eliminarProductoForm, id, Producto, respuesta = "productos", modelo = "Producto")
 
 # Vistas para Servicio
 
+@login_required(login_url='/login/')
 def serviciosIndex(request):
 	listado = Servicio.objects.filter(eliminado=False)
-	return render_to_response('servicios/index.html', {'servicios': listado})
+	return render_to_response('app1/servicios/index.html', {'servicios': listado},
+		context_instance=RequestContext(request))
 
+@login_required(login_url='/login/')
 def verServicio(request, id):
-	return ver(request, id, Servicio, "servicios")
+	return ver(request, ServicioForm, id, Servicio, respuesta = "servicios", modelo = "Servicio")
 
+@user_passes_test(lambda u:u.is_staff, login_url='/login/')
+@login_required(login_url='/login/')
+def eliminarServicio(request, id):
+	return eliminar(request, eliminarServicioForm, id, Servicio, respuesta = "servicios", modelo = "Servicio")
+
+@user_passes_test(lambda u:u.is_staff, login_url='/login/')
+@login_required(login_url='/login/')
 def agregarServicio(request):
 	return agregar(request, ServicioForm, respuesta = "servicios", modelo = "Servicio")
 
+@user_passes_test(lambda u:u.is_staff, login_url='/login/')
+@login_required(login_url='/login/')
 def editarServicio(request, id):
 	return editar(request, ServicioForm, id, Servicio, respuesta = "servicios", modelo = "Servicio")
 
+@login_required(login_url='/login/')
 def eliminarServicio(request, id):
 	return eliminar(request, eliminarServicioForm, id, Servicio, respuesta = "servicios", modelo = "Servicio")
 
 # Vistas para Cliente
 
+@login_required(login_url='/login/')
 def clientesIndex(request):
 	listado = Cliente.objects.filter(eliminado=False)
-	return render_to_response('clientes/index.html', {'clientes': listado})
+	return render_to_response('app1/clientes/index.html', {'clientes': listado},
+		context_instance=RequestContext(request))
 
+
+@login_required(login_url='/login/')
 def agregarCliente(request):
 	return agregar(request, ClienteForm, respuesta = "clientes", modelo = "Cliente")
 
+@login_required(login_url='/login/')
 def editarCliente(request, id):
 	return editar(request, ClienteForm, id, Cliente, respuesta = "clientes", modelo = "Cliente")
 
+@user_passes_test(lambda u:u.is_staff, login_url='/login/')
+@login_required(login_url='/login/')
 def eliminarCliente(request, id):
 	return eliminar(request, eliminarClienteForm, id, Cliente, respuesta = "clientes", modelo = "Cliente")
 
+@login_required(login_url='/login/')
+def verCliente(request, id):
+	return ver(request, ClienteForm, id, Cliente, respuesta = "clientes", modelo = "Cliente")
+
 # Vistas para Empleado
 
+@user_passes_test(lambda u:u.is_staff, login_url='/login/')
+@login_required(login_url='/login/')
 def empleadosIndex(request):
 	listado = Empleado.objects.filter(eliminado=False)
-	return render_to_response('empleados/index.html', {'empleados': listado})
+	users = User.objects.all().exclude(username='super')
+	return render_to_response('app1/empleados/index.html', {'data': zip(listado, users)},
+		context_instance=RequestContext(request))
 
+@user_passes_test(lambda u:u.is_staff, login_url='/login/')
+@login_required(login_url='/login/')
 def agregarEmpleado(request):
 	return agregar(request, EmpleadoForm, respuesta = "empleados", modelo = "Empleado")
 
+@user_passes_test(lambda u:u.is_staff, login_url='/login/')
+@login_required(login_url='/login/')
 def editarEmpleado(request, id):
 	return editar(request, EmpleadoForm, id, Empleado, respuesta = "empleados", modelo = "Empleado")
 
+@user_passes_test(lambda u:u.is_staff, login_url='/login/')
+@login_required(login_url='/login/')
+def verEmpleado(request, id):
+	return ver(request, EmpleadoForm, id, Empleado, respuesta = "empleados", modelo = "Empleado")
+
+@user_passes_test(lambda u:u.is_staff, login_url='/login/')
+@login_required(login_url='/login/')
 def eliminarEmpleado(request, id):
 	return eliminar(request, eliminarEmpleadoForm, id, Empleado, respuesta = "empleados", modelo = "Empleado")
 
 # Vistas para Cotizacion
 
+@login_required(login_url='/login/')
 def cotizacionesIndex(request):
 	listado = Cotizacion.objects.all()
-	return render_to_response('cotizaciones/index.html', {'cotizaciones': listado})
+	return render_to_response('app1/cotizaciones/index.html', {'cotizaciones': listado},
+		context_instance=RequestContext(request))
 
+@login_required(login_url='/login/')
 def verCotizacion(request, id):
 	elemento = Cotizacion.objects.get(id=id)
 	detalles = DetalleCotizacion.objects.filter(cotizacion=id)
-	return render_to_response('cotizaciones/detalle.html', {'cotizacion': elemento, 'detalles': detalles})
+	return render_to_response('app1/cotizaciones/detalle.html', {'cotizacion': elemento, 'detalles': detalles},
+		context_instance=RequestContext(request))
 
+@login_required(login_url='/login/')
 def agregarCotizacion(request):
 	if request.POST:
 		formulario = CotizacionForm(request.POST)
@@ -143,9 +210,14 @@ def agregarCotizacion(request):
 			return HttpResponseRedirect("/cotizaciones/add-detail/"+str(cotizacion.id))
 	else:
 		formulario = CotizacionForm()
-	return render_to_response('cotizaciones/form.html', {'formulario': formulario,
+	return render_to_response('app1/cotizaciones/form.html', {'formulario': formulario,
 		'modelo': 'Cotizacion', 'respuesta': 'cotizaciones'}, context_instance=RequestContext(request))
 
+@login_required(login_url='/login/')
+def editarCotizacion(request, id):
+	return editar(request, CotizacionForm, id, Cotizacion, respuesta = "cotizaciones", modelo = "Cotizacion")
+
+@login_required(login_url='/login/')
 def agregarDetalleCotizacion(request, id):
 	cotizacion = Cotizacion.objects.get(id=id)
 	detalles = DetalleCotizacion.objects.filter(cotizacion=id)
@@ -158,10 +230,12 @@ def agregarDetalleCotizacion(request, id):
 			return HttpResponseRedirect("/cotizaciones/add-detail/"+str(id))
 	else:
 		form = DetalleCotizacionForm()
-	return render_to_response('cotizaciones/detailform.html', {'formulario': form,
+	return render_to_response('app1/cotizaciones/detailform.html', {'formulario': form,
 		'modelo': 'DetalleCotizacion', 'respuesta': 'cotizaciones', 'cotizacion': cotizacion,
 		'detalles': detalles}, context_instance=RequestContext(request))
 
+@user_passes_test(lambda u:u.is_staff, login_url='/login/')
+@login_required(login_url='/login/')
 def eliminarCotizacion(request, id):
 	item = get_object_or_404(Cotizacion, id=id)
 	if request.POST:
@@ -172,10 +246,11 @@ def eliminarCotizacion(request, id):
 			return HttpResponseRedirect("/cotizaciones")
 	else:
 		formulario = eliminarCotizacionForm(instance=item)
-	return render_to_response('confirmar.html', { 'modelo': Cotizacion,
+	return render_to_response('app1/confirmar.html', { 'modelo': Cotizacion,
 		'formulario': formulario, 'respuesta': "cotizaciones" },
 		 context_instance=RequestContext(request))
 
+@login_required(login_url='/login/')
 def eliminarDetalleCotizacion(request, id):
 	item = get_object_or_404(DetalleCotizacion, id=id)
 	if request.POST:
@@ -186,10 +261,11 @@ def eliminarDetalleCotizacion(request, id):
 			return HttpResponseRedirect("/cotizaciones/"+str(item.cotizacion))
 	else:
 		formulario = eliminarDetalleCotizacionForm(instance=item)
-	return render_to_response('confirmar.html', { 'modelo': "DetalleCotizacion",
+	return render_to_response('app1/confirmar.html', { 'modelo': "DetalleCotizacion",
 		'formulario': formulario, 'respuesta': "cotizaciones/"+str(item.cotizacion) },
 		 context_instance=RequestContext(request))
 
+@login_required(login_url='/login/')
 def editarDetalleCotizacion(request, id):
 	item = get_object_or_404(DetalleCotizacion, id=id)
 	if request.POST:
@@ -197,9 +273,9 @@ def editarDetalleCotizacion(request, id):
 		if formulario.is_valid():
 			item = formulario.save(commit=False)
 			item.save()
-			return HttpResponseRedirect("/cotizaciones/"+str(item.cotizacion))
+			return HttpResponseRedirect("/cotizaciones/"+id)
 	else:
 		formulario = DetalleCotizacionForm(instance=item)
-	return render_to_response('formulario.html', {'formulario': formulario,
-		'modelo': 'DetalleCotizacion', 'respuesta': 'cotizaciones'},
+	return render_to_response('app1/formulario.html', { 'modelo': "DetalleCotizacion",
+		'formulario': formulario, 'respuesta': "cotizaciones" },
 		 context_instance=RequestContext(request))

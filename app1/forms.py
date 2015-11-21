@@ -38,14 +38,12 @@ class ClienteForm(ModelForm):
 class EmpleadoForm(ModelForm):
 	class Meta:
 		model = Empleado
-		exclude = ('eliminado', 'idEstadoEmpleado')
+		exclude = ('eliminado', 'idEstadoEmpleado', 'user')
 		widgets = {
 		'identificacion': NumberInput(attrs={'placeholder': 'Identificacion'},),
 		'idTipoId': NumberInput(attrs={'placeholder': 'Tipo'}),
-		'nombres': TextInput(attrs={'placeholder': 'Nombres'}),
-		'apellidos': TextInput(attrs={'placeholder': 'Apellidos'}),
+		'user': Select(attrs={'placeholder': 'Nombre de usuario', 'class': "ui dropdown"}),
 		'direccion': TextInput(attrs={'placeholder': 'Direccion'}),
-		'email': EmailInput(attrs={'placeholder': 'mail@dominio.com'}),
 		'telefonos': TextInput(attrs={'placeholder': '3XXXXXXXXX - 3XXXXXX'}),}
 
 class CotizacionForm(ModelForm):
@@ -63,7 +61,7 @@ class DetalleCotizacionForm(ModelForm):
 		widgets = {
 		'producto': Select(attrs={'placeholder': 'Producto', 'class': "ui dropdown"}),
 		'servicio': Select(attrs={'placeholder': 'Servicio', 'class': "ui dropdown"}),
-		'cantidad': NumberInput(attrs={'placeholder': 'Canidad'}),}
+		'cantidad': NumberInput(attrs={'placeholder': 'Cantidad'}),}
 
 class eliminarProductoForm(ModelForm):
 	class Meta:

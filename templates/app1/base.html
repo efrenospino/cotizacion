@@ -43,7 +43,7 @@
 		        <!-- Top Menu Items -->
 		        <ul class="nav navbar-right top-nav">
 		            <li class="dropdown">
-		                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="user icon"></i> John Smith <b class="caret"></b></a>
+		                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="user icon"></i>{{user.username}}<b class="caret"></b></a>
 		                <ul class="dropdown-menu">
 		                    <li>
 		                        <a href="#"><i class="user icon"></i> Perfil</a>
@@ -53,7 +53,7 @@
 		                    </li>
 		                    <li class="divider"></li>
 		                    <li>
-		                        <a href="#"><i class="sign out icon"></i> Salir</a>
+		                        <a href="/logout"><i class="sign out icon"></i> Salir</a>
 		                    </li>
 		                </ul>
 		            </li>
@@ -67,19 +67,30 @@
 		                <li id="clientes">
 		                    <a href="/clientes"><i class="inverted blue users icon"></i> Clientes</a>
 		                </li>
-		                <li id="productos">
-		                    <a href="/productos"><i class="inverted blue list layout icon"></i> Productos</a>
-		                </li>
-		                <li id="empleados">
-		                    <a href="/empleados">
-		                    <i class="inverted blue users icon"></i> Empleados</a>
-		                </li>
-		                <li id="servicios">
-		                    <a href="/servicios"><i class="inverted blue list layout icon"></i></i> Servicios</a>
-		                </li>
 		                <li id="cotizaciones">
 		                    <a href="/cotizaciones"><i class="inverted blue calculator icon"></i> Cotizaciones</a>
 		                </li>
+										{% if request.user.is_staff %}
+										<li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo">
+													<i class="inverted blue protect icon"></i> Administrador <i class="inverted blue dropdown icon"></i></a>
+                        <ul id="demo" class="collapse">
+													<li id="productos">
+															<a href="/productos"><i class="inverted blue list layout icon"></i> Productos</a>
+													</li>
+													<li id="servicios">
+															<a href="/servicios"><i class="inverted blue list layout icon"></i></i> Servicios</a>
+													</li>
+													<li id="empleados">
+															<a href="/empleados">
+															<i class="inverted blue users icon"></i> Empleados</a>
+													</li>
+													<li id="admin">
+															<a href="/admin"><i class="inverted blue privacy icon"></i> Admin</a>
+													</li>
+                        </ul>
+                    </li>
+										{% endif %}
 		            </ul>
 		        </div>
 		        <!-- /.navbar-collapse -->

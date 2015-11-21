@@ -15,42 +15,49 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from app1 import views
 
 urlpatterns = [
 
-    url(r'^$', views.home),
+    url(r'^$', 'app1.views.home'),
 
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^productos/$', views.productosIndex),
-    url(r'^productos/(?P<id>\d+)/$', views.verProducto),
-    url(r'^productos/add$', views.agregarProducto),
-    url(r'^productos/edit/(?P<id>\d+)/$', views.editarProducto),
-    url(r'^productos/delete/(?P<id>\d+)/$', views.eliminarProducto),
+    url(r'^login/$','authapp.views.login_view'),
+    url(r'^logout/$','authapp.views.logout_view'),
 
-    url(r'^servicios/$', views.serviciosIndex),
-    url(r'^servicios/(?P<id>\d+)/$', views.verServicio),
-    url(r'^servicios/add$', views.agregarServicio),
-    url(r'^servicios/edit/(?P<id>\d+)/$', views.editarServicio),
-    url(r'^servicios/delete/(?P<id>\d+)/$', views.eliminarServicio),
+    url(r'^productos/$', 'app1.views.productosIndex'),
+    url(r'^productos/(?P<id>\d+)/$', 'app1.views.verProducto'),
+    url(r'^productos/add$', 'app1.views.agregarProducto'),
+    url(r'^productos/edit/(?P<id>\d+)/$', 'app1.views.editarProducto'),
+    url(r'^productos/delete/(?P<id>\d+)/$', 'app1.views.eliminarProducto'),
 
-    url(r'^clientes/$', views.clientesIndex),
-    url(r'^clientes/add$', views.agregarCliente),
-    url(r'^clientes/edit/(?P<id>\d+)/$', views.editarCliente),
-    url(r'^clientes/delete/(?P<id>\d+)/$', views.eliminarCliente),
+    url(r'^servicios/$', 'app1.views.serviciosIndex'),
+    url(r'^servicios/(?P<id>\d+)/$', 'app1.views.verServicio'),
+    url(r'^servicios/add$', 'app1.views.agregarServicio'),
+    url(r'^servicios/edit/(?P<id>\d+)/$', 'app1.views.editarServicio'),
+    url(r'^servicios/delete/(?P<id>\d+)/$', 'app1.views.eliminarServicio'),
 
-    url(r'^empleados/$', views.empleadosIndex),
-    url(r'^empleados/add$', views.agregarEmpleado),
-    url(r'^empleados/edit/(?P<id>\d+)/$', views.editarEmpleado),
-    url(r'^empleados/delete/(?P<id>\d+)/$', views.eliminarEmpleado),
+    url(r'^clientes/$', 'app1.views.clientesIndex'),
+    url(r'^clientes/(?P<id>\d+)/$', 'app1.views.verCliente'),
+    url(r'^clientes/add$', 'app1.views.agregarCliente'),
+    url(r'^clientes/edit/(?P<id>\d+)/$', 'app1.views.editarCliente'),
+    url(r'^clientes/delete/(?P<id>\d+)/$', 'app1.views.eliminarCliente'),
 
-    url(r'^cotizaciones/$', views.cotizacionesIndex),
-    url(r'^cotizaciones/(?P<id>\d+)$', views.verCotizacion),
-    url(r'^cotizaciones/add$', views.agregarCotizacion),
-    url(r'^cotizaciones/add-detail/(?P<id>\d+)$', views.agregarDetalleCotizacion),
-    url(r'^cotizaciones/delete/(?P<id>\d+)/$', views.eliminarCotizacion),
-    url(r'^cotizaciones/detalle/delete/(?P<id>\d+)/$', views.eliminarDetalleCotizacion),
-    url(r'^cotizaciones/detalle/edit/(?P<id>\d+)/$', views.editarDetalleCotizacion),
+    url(r'^empleados/$', 'app1.views.empleadosIndex'),
+    url(r'^empleados/(?P<id>\d+)/$', 'authapp.views.ver'),
+    url(r'^empleados/edit/(?P<id>\d+)/$', 'authapp.views.editar'),
+    url(r'^empleados/add$', 'authapp.views.signup', name='signup'),
+    url(r'^empleados/delete/(?P<id>\d+)/$', 'app1.views.eliminarEmpleado'),
+
+    url(r'^cotizaciones/$', 'app1.views.cotizacionesIndex'),
+    url(r'^cotizaciones/(?P<id>\d+)$', 'app1.views.verCotizacion'),
+    url(r'^cotizaciones/add$', 'app1.views.agregarCotizacion'),
+    url(r'^cotizaciones/edit/(?P<id>\d+)$', 'app1.views.editarCotizacion'),
+    url(r'^cotizaciones/add-detail/(?P<id>\d+)$', 'app1.views.agregarDetalleCotizacion'),
+    url(r'^cotizaciones/delete/(?P<id>\d+)/$', 'app1.views.eliminarCotizacion'),
+    url(r'^cotizaciones/detalle/delete/(?P<id>\d+)/$', 'app1.views.eliminarDetalleCotizacion'),
+    url(r'^cotizaciones/detalle/edit/(?P<id>\d+)/$', 'app1.views.editarDetalleCotizacion'),
+
+
 
 ]

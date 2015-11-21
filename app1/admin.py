@@ -5,7 +5,7 @@ class ClienteAdmin(admin.ModelAdmin):
     list_display = ('id','identificacion','razonSocial', 'idTipoId', 'nombres', 'apellidos', 'direccion', 'email', 'telefonos')
 
 class EmpleadoAdmin(admin.ModelAdmin):
-    list_display = ('id','identificacion', 'nombres','apellidos')
+    list_display = ('id','identificacion', 'direccion', 'telefonos')
 
 class ProductoAdmin(admin.ModelAdmin):
     list_display = ('id','nombre','descripcion','precio', 'idUnidad')

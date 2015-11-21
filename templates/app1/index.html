@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "app1/base.html" %}
 {% block content %}
 
 	<script type="text/javascript">
@@ -110,6 +110,7 @@
 		        </a>
 		    </div>
 		</div>
+		{% if request.user.is_staff %}
 		<div class="col-lg-4 col-md-4">
 		    <div class="panel panel-primary">
 		        <div class="panel-heading">
@@ -131,7 +132,8 @@
 		            </div>
 		        </a>
 		    </div>
-		</div>		
+		</div>
+		{% endif %}
 	</div>
 
 {% endblock content %}

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "app1/base.html" %}
 {% block content %}
 
 	<script type="text/javascript">
@@ -21,8 +21,8 @@
 	        <ul class="list-unstyled">
 		        <li class="active">
 		        	<div class="ui labeled button" tabindex="0">
-	          			<div class="positive ui button"  onclick="window.location.href='add'"><i class="add icon"></i> Agregar </div>
-	          			<a class="ui basic green left pointing label">
+	          			<div class="blue ui button"  onclick="window.location.href='add'"><i class="add icon"></i> Nuevo </div>
+	          			<a class="ui basic blue left pointing label">
 	            			{{servicios|length}}
 	          			</a>
 	        		</div>
@@ -30,7 +30,7 @@
 	        </ul>
 	    </div>
 	    <div class="col-lg-12">
-			<table class="ui blue celled table">
+			<table class="ui selectable celled table">
 				<thead>
 			    	<tr>
 			    		<th>Código</th>
@@ -43,13 +43,16 @@
 				<tbody>
 					{% for servicio in servicios %}
 					<tr>
-						<td>{{servicio.id}}</td>
+						<td width="30">{{servicio.id}}</td>
 						<td>{{servicio.nombre}}</td>
 						<td>{{servicio.descripcion}}</td>
 						<td>{{servicio.precio}}</td>
 						<td>
-							<button type="button" class="ui icon button" onclick="window.location.href='edit/{{servicio.id}}'"><i class="edit icon"></i>Editar</button>
-							<button type="button" class="ui icon button" onclick="window.location.href='delete/{{servicio.id}}'"><i class="remove icon"></i></button>
+							<div class="ui buttons">
+								<button type="button" class="ui default icon button" onclick="window.location.href='{{servicio.id}}'"><i class="external icon"></i></button>
+								<button type="button" class="ui yellow icon button" onclick="window.location.href='edit/{{servicio.id}}'"><i class="edit icon"></i></button>
+								<button type="button" class="ui negative icon button" onclick="window.location.href='delete/{{servicio.id}}'"><i class="remove icon"></i></button>
+							</div>
 						</td>
 					</tr>
 					{% endfor %}

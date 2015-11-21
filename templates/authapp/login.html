@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sistema de cotizaciones - Login</title>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+  	<meta name=viewport content="width=device-width, initial-scale=1">
+  	<meta name="mobile-web-app-capable" content="yes">
+
+		<!-- Semantic UI Core CSS -->
+		<link href="{% static 'dist/semantic-ui/semantic.min.css '%}" rel="stylesheet">
+
+		<style type="text/css">
+		    body > .grid {
+		      height: 100%;
+		    }
+		    .image {
+		      margin-top: -100px;
+		    }
+		    .column {
+		      max-width: 300px;
+		    }
+		  </style>
+
+	</head>
+	<body>
+		<div class="ui container">
+			<br><br><br><br>
+			<div class="ui middle aligned center aligned grid">
+			  	<div class="column">
+			   		<form  action="." method="POST"  role="form" class="ui large form">
+							{% csrf_token %}
+				  		<div class="content">
+	        				<h2>Inicia sesión</h2>
+	        				<br>
+	      				</div>
+		        		<div class="field">
+		          			<div class="ui left icon input">
+		            			<i class="user icon"></i>
+		            			<input class="form-control" placeholder="Usuario" name="usuario" type="text" autofocus>
+		          			</div>
+		        		</div>
+		        		<div class="field">
+		          			<div class="ui left icon input">
+		            			<i class="lock icon"></i>
+		            			<input class="form-control" placeholder="Contraseña" name="password" type="password" value="">
+		          			</div>
+		        		</div>
+		        			<input type="submit" Value="Login" class="ui blue button">
+									<br><br>
+					    		{% if mensaje %}
+						    		<div class="ui negative message">
+							    	    <small>{{mensaje}}</small>
+							    	</div>
+						    	{% endif %}
+			    	</form>
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>

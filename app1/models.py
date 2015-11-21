@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.conf import settings
 
 class Producto(models.Model):
     nombre = models.CharField(max_length=100)
@@ -7,7 +9,6 @@ class Producto(models.Model):
     precio = models.FloatField()
     idEstadoProducto = models.PositiveIntegerField(default=1)
     eliminado = models.BooleanField(default=False)
-
 
     def get_fields(self):
         return [(field.name, field.value_to_string(self)) for field in Producto._meta.fields]
@@ -31,20 +32,13 @@ class Servicio(models.Model):
 class Cotizacion(models.Model):
     fecha = models.DateField(auto_now_add=True)
     cliente = models.ForeignKey('Cliente')
-    empleado = models.ForeignKey('Empleado')
+    empleado = models.ForeignKey(settings.AUTH_USER_MODEL)
     total = models.FloatField()
     idEstadoCotizacion = models.PositiveIntegerField(default=1)
     eliminado = models.BooleanField(default=False)
 
     def get_fields(self):
         return [(field.name, field.value_to_string(self)) for field in Cotizacion._meta.fields]
-
-    #def _cotizacionItems(self):
-    #    return DetalleCotizacion.objects.filter(cotizacion=self.id)
-        #return set(detalleCotizacion.subtotal for detalleCotizacion in
-        #    DetalleCotizacion.objects.filter(cotizacion=self.id))
-
-    #items = property(_cotizacionItems)
 
     def _calcularTotal(self):
         t = 0
@@ -79,7 +73,7 @@ class DetalleCotizacion(models.Model):
     eliminado = models.BooleanField(default=False)
 
 class Cliente(models.Model):
-    identificacion = models.CharField(max_length=15)
+    identificacion = models.PositiveIntegerField()
     idTipoId = models.PositiveIntegerField()
     razonSocial = models.CharField(max_length=200, blank=True)
     nombres = models.CharField(max_length=100, blank=True)
@@ -100,11 +94,9 @@ class Cliente(models.Model):
             return self.razonSocial
 
 class Empleado(models.Model):
-    identificacion = models.CharField(max_length=15)
+    identificacion = models.PositiveIntegerField()
+    user = models.OneToOneField(User, unique=True, related_name='perfil')
     idTipoId = models.PositiveIntegerField()
-    nombres = models.CharField(max_length=100, blank=True)
-    apellidos = models.CharField(max_length=100, blank=True)
-    email = models.EmailField(max_length=100, blank=True)
     direccion = models.CharField(max_length=100, blank=True)
     idEstadoEmpleado = models.PositiveIntegerField(default=1)
     telefonos = models.CharField(max_length=100, blank=True)
@@ -114,7 +106,7 @@ class Empleado(models.Model):
         return [(field.name, field.value_to_string(self)) for field in Empleado._meta.fields]
 
     def __str__(self):
-        return "%s %s"  % (self.nombres,self.apellidos)
+        return str(self.identificacion)
 
 class Parametro(models.Model):
     atributo = models.CharField(max_length=50)
@@ -125,7 +117,6 @@ class Parametro(models.Model):
         return self.atributo
 
 class ValorParametro(models.Model):
-
     valor = models.CharField(max_length=30)
     parametro = models.ForeignKey('Parametro')
     orden = models.CharField(max_length=3)
