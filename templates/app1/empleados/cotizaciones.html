@@ -1,0 +1,92 @@
+{% extends "app1/base.html" %}
+{% block content %}
+
+	<script type="text/javascript">
+		document.getElementById('empleados').className = 'active';
+	</script>
+
+	<div class="row">
+		<div class="col-lg-12">
+		    <h1 class="page-header">
+		        Empleados
+		        <small>Listado de cotizaciones</small>
+		    </h1>
+		    <ol class="breadcrumb">
+	            <li><a class="section" href="/"><i class="circular folder icon"></i>Inicio</a></li>
+	            <i class="right chevron icon divider"></i>
+	            <li><a class="section" href="/empleados"><i class="circular folder icon"></i>Empleados</a></li>
+	            <i class="right chevron icon divider"></i>
+							<li><a class="section" href="/empleados/{{empleado.id}}">
+								<i class="circular folder icon"></i>{{empleado.id}}
+							</a></li>
+	            <i class="right chevron icon divider"></i>
+	            <li class="active"><i class="circular folder open icon"></i> Cotizaciones</li>
+	        </ol>
+		</div>
+		<div class="col-lg-12">
+			<table class="ui celled table">
+				<thead>
+			    	<tr>
+			    		<th>Código</th>
+			    		<th>Cedula</th>
+			    		<th>Nombres</th>
+							<th>Apellidos</th>
+			    		<th>Nombre de usuario</th>
+							<th>Direccion</th>
+							<th>Telefonos</th>
+			  		</tr>
+			  	</thead>
+				<tbody>
+					<tr>
+						<td width="30">{{empleado.id}}</td>
+						<td>{{empleado.identificacion}}</td>
+						<td>{{usuario.first_name}}</td>
+						<td>{{usuario.last_name}}</td>
+						<td>{{usuario.username}}</td>
+						<td>{{empleado.direccion}}</td>
+						<td>{{empleado.telefonos}}</td>
+					</tr>
+			  	</tbody>
+			</table>
+			<h2>Items de la cotización</h2>
+			<table class="ui selectable celled table">
+				<thead>
+			    	<tr>
+							<th>Código</th>
+			    		<th>Fecha</th>
+			    		<th>Cliente</th>
+			    		<th>Total</th>
+							<th>Acciones</th>
+			  		</tr>
+			  	</thead>
+				<tbody>
+					{% for cotizacion in cotizaciones %}
+					<tr>
+						<td width="30">{{cotizacion.id}}</td>
+						<td>{{cotizacion.fecha}}</td>
+						<td>{{cotizacion.cliente}}</td>
+						<td>{{cotizacion.total}}</td>
+						<td>
+							<div class="ui buttons">
+								<button type="button" class="ui default icon button" onclick="window.location.href='/cotizaciones/{{cotizacion.id}}'"><i class="external icon"></i></button>
+								<button type="button" class="ui yellow icon button" onclick="window.location.href='/cotizaciones/edit/{{cotizacion.id}}'"><i class="edit icon"></i></button>
+								{% if request.user.is_staff %}<button type="button" class="ui negative icon button" onclick="window.location.href='/cotizaciones/delete/{{cotizacion.id}}'"><i class="remove icon"></i></button>{% endif %}
+							</div>
+						</td>
+					</tr>
+					{% endfor %}
+			  	</tbody>
+			</table>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+	    <div class="col-lg-12">
+			{% block form %}
+
+		    {% endblock form %}
+	    </div>
+	</div>
+
+
+{% endblock content %}

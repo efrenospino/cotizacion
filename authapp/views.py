@@ -113,23 +113,28 @@ def editar(request, id):
             last_name = form.cleaned_data["last_name"]
             is_staff = form.cleaned_data["is_staff"]
 
+            usuario.username = username
+            usuario.set_password(password)
+            usuario.email = email
+            usuario.first_name = first_name
+            usuario.last_name = last_name
+            usuario.is_staff = is_staff
             # At this point, user is a User object that has already been saved
             # to the database. You can continue to change its attributes
             # if you want to change other fields
 
             # Save new user attributes
-            user = form.save(commit=False)
-            user.save()
+            usuario.save()
 
             empleado = empleado_form.save(commit=False)
-            empleado.user = user
+            empleado.user = usuario
             empleado.save()
 
             return HttpResponseRedirect('/empleados')  # Redirect after POST
     else:
         form = SignUpForm(instance=usuario)
         empleado_form = EmpleadoForm(instance=empleado)
-
+        #form.fields['password'].widget.attrs['disabled'] = True
     data = {
         'form': form, 'empleado_form': empleado_form
     }

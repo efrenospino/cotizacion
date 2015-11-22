@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
+from datetime import datetime
 
 class Producto(models.Model):
     nombre = models.CharField(max_length=100)
@@ -30,9 +31,9 @@ class Servicio(models.Model):
         return self.nombre
 
 class Cotizacion(models.Model):
-    fecha = models.DateField(auto_now_add=True)
+    fecha = models.DateTimeField(default=datetime.now, blank=True)
     cliente = models.ForeignKey('Cliente')
-    empleado = models.ForeignKey(settings.AUTH_USER_MODEL)
+    empleado = models.ForeignKey('Empleado')
     total = models.FloatField()
     idEstadoCotizacion = models.PositiveIntegerField(default=1)
     eliminado = models.BooleanField(default=False)
@@ -111,7 +112,7 @@ class Empleado(models.Model):
 class Parametro(models.Model):
     atributo = models.CharField(max_length=50)
     descripcion = models.CharField(max_length=200)
-    estadoParametro = models.CharField(max_length=1)
+    estado = models.PositiveIntegerField(default=1)
 
     def __str__(self):
         return self.atributo
@@ -119,8 +120,8 @@ class Parametro(models.Model):
 class ValorParametro(models.Model):
     valor = models.CharField(max_length=30)
     parametro = models.ForeignKey('Parametro')
-    orden = models.CharField(max_length=3)
-    estadoValorParametro = models.CharField(max_length=1)
+    orden = models.PositiveIntegerField()
+    estado = models.PositiveIntegerField(default=1)
 
     def __str__(self):
         return self.valor

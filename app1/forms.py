@@ -49,10 +49,11 @@ class EmpleadoForm(ModelForm):
 class CotizacionForm(ModelForm):
 	class Meta:
 		model = Cotizacion
-		exclude = ('eliminado', 'total', 'idEstadoCotizacion')
+		exclude = ('eliminado', 'total', 'idEstadoCotizacion', 'empleado', 'fecha')
 		widgets = {
 		'cliente': Select(attrs={'placeholder': 'Cliente', 'class': "ui dropdown"}),
-		'empleado': Select(attrs={'placeholder': 'Empleado', 'class': "ui dropdown"}),}
+		#'empleado': Select(attrs={'placeholder': 'Empleado', 'class': "ui dropdown"}),
+		}
 
 class DetalleCotizacionForm(ModelForm):
 	class Meta:
@@ -62,6 +63,24 @@ class DetalleCotizacionForm(ModelForm):
 		'producto': Select(attrs={'placeholder': 'Producto', 'class': "ui dropdown"}),
 		'servicio': Select(attrs={'placeholder': 'Servicio', 'class': "ui dropdown"}),
 		'cantidad': NumberInput(attrs={'placeholder': 'Cantidad'}),}
+
+class ParametroForm(ModelForm):
+	class Meta:
+		model = Parametro
+		fields = '__all__'
+		widgets = {
+		'atributo': TextInput(attrs={'placeholder': 'Atributo'}),
+		'descripcion': TextInput(attrs={'placeholder': 'Descripcion'}),
+		'estado': NumberInput(attrs={'placeholder': 'Estado'}),}
+
+class ValorParametroForm(ModelForm):
+	class Meta:
+		model = ValorParametro
+		exclude = ('parametro', )
+		widgets = {
+		'valor': TextInput(attrs={'placeholder': 'Valor'}),
+		'orden': NumberInput(attrs={'placeholder': 'Estado'}),
+		'estado': NumberInput(attrs={'placeholder': 'Estado'}),}
 
 class eliminarProductoForm(ModelForm):
 	class Meta:

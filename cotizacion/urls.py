@@ -42,14 +42,20 @@ urlpatterns = [
     url(r'^clientes/add$', 'app1.views.agregarCliente'),
     url(r'^clientes/edit/(?P<id>\d+)/$', 'app1.views.editarCliente'),
     url(r'^clientes/delete/(?P<id>\d+)/$', 'app1.views.eliminarCliente'),
+    url(r'^clientes/cotizaciones/(?P<id>\d+)/$', 'app1.views.verCotizacionesCliente'),
 
     url(r'^empleados/$', 'app1.views.empleadosIndex'),
     url(r'^empleados/(?P<id>\d+)/$', 'authapp.views.ver'),
     url(r'^empleados/edit/(?P<id>\d+)/$', 'authapp.views.editar'),
     url(r'^empleados/add$', 'authapp.views.signup', name='signup'),
     url(r'^empleados/delete/(?P<id>\d+)/$', 'app1.views.eliminarEmpleado'),
+    url(r'^empleados/cotizaciones/(?P<id>\d+)/$', 'app1.views.verCotizacionesEmpleado'),
 
     url(r'^cotizaciones/$', 'app1.views.cotizacionesIndex'),
+    url(r'^cotizaciones/orden=monto-asc$', 'app1.views.cotizacionesPorMontoASC'),
+    url(r'^cotizaciones/orden=monto-desc$', 'app1.views.cotizacionesPorMontoDESC'),
+    url(r'^cotizaciones/orden=fecha-asc$', 'app1.views.cotizacionesPorFechaASC'),
+    url(r'^cotizaciones/orden=fecha-desc$', 'app1.views.cotizacionesPorFechaDESC'),
     url(r'^cotizaciones/(?P<id>\d+)$', 'app1.views.verCotizacion'),
     url(r'^cotizaciones/add$', 'app1.views.agregarCotizacion'),
     url(r'^cotizaciones/edit/(?P<id>\d+)$', 'app1.views.editarCotizacion'),
@@ -58,6 +64,10 @@ urlpatterns = [
     url(r'^cotizaciones/detalle/delete/(?P<id>\d+)/$', 'app1.views.eliminarDetalleCotizacion'),
     url(r'^cotizaciones/detalle/edit/(?P<id>\d+)/$', 'app1.views.editarDetalleCotizacion'),
 
+    url(r'^parametros/$', 'app1.views.parametrosIndex'),
+    url(r'^parametros/add$', 'app1.views.agregarParametro'),
+    url(r'^parametros/(?P<id>\d+)/$', 'app1.views.verParametro'),
+    url(r'^parametros/(?P<id>\d+)/add-valor$', 'app1.views.agregarValorParametro'),
 
-
+    url(r'^pdf/$', 'app1.views.hello_pdf'),
 ]

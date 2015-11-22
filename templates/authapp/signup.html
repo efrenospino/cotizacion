@@ -53,6 +53,11 @@
                         <i class="save icon"></i> Guardar
                     </button>
                     {% endif %}
+                    {% if id %}
+                        <button type="button" class="ui black icon button" onclick="window.location.href='/empleados/cotizaciones/{{id}}'">
+                            Ver cotizaciones realizadas <i class="right arrow icon"></i>
+                        </button>
+                    {% endif %}
                 </p>
 
                 {% csrf_token %}

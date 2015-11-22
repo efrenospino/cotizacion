@@ -85,9 +85,14 @@
 															<a href="/empleados">
 															<i class="inverted blue users icon"></i> Empleados</a>
 													</li>
-													<li id="admin">
-															<a href="/admin"><i class="inverted blue privacy icon"></i> Admin</a>
+													<li id="parametros">
+															<a href="/parametros"><i class="inverted blue list layout icon"></i> Parametros</a>
 													</li>
+													{% if request.user.is_superuser %}
+														<li id="admin">
+																<a href="/admin"><i class="inverted blue privacy icon"></i> Admin</a>
+														</li>
+													{% endif %}
                         </ul>
                     </li>
 										{% endif %}
@@ -127,6 +132,10 @@
 			});*/
 			$('select.dropdown')
 			  .dropdown();
+
+			$('.ui.dropdown')
+				.dropdown()
+			;
 		</script>
 
 		<!-- Bootstrap Core JavaScript -->

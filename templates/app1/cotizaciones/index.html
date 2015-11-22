@@ -21,11 +21,51 @@
 	        <ul class="list-unstyled">
 		        <li class="active">
 		        	<div class="ui labeled button" tabindex="0">
-	          			<div class="blue ui button"  onclick="window.location.href='add'"><i class="add icon"></i> Nuevo </div>
+	          			<div class="blue ui button" onclick="window.location.href='/cotizaciones/add'"><i class="add icon"></i> Nuevo </div>
 	          			<a class="ui basic blue left pointing label">
 	            			{{cotizaciones|length}}
 	          			</a>
 	        		</div>
+							<div class="ui floating dropdown labeled icon button">
+                <i class="filter icon"></i>
+                <span class="text">Ordenar</span>
+                <div class="menu">
+                  <div class="header">
+                    <i class="money icon"></i>
+                    Por Monto Total
+                  </div>
+                  <div class="scrolling menu">
+                    <div class="item">
+                      <i class="sort numeric ascending icon"></i>
+                      	<a href='/cotizaciones/orden=monto-asc'>Ordenar por total ASC</a>
+                    </div>
+										<div class="item">
+                      <i class="sort numeric descending icon"></i>
+                      	<a href='/cotizaciones/orden=monto-desc'>Ordenar por total DESC</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+							<div class="ui floating dropdown labeled icon button">
+                <i class="filter icon"></i>
+                <span class="text">Ordenar</span>
+                <div class="menu">
+									<div class="header">
+                    <i class="calendar icon"></i>
+                    Por FECHA
+                  </div>
+                  <div class="scrolling menu">
+                    <div class="item">
+                      <i class="sort content ascending icon"></i>
+                      	<a href='/cotizaciones/orden=fecha-asc'>Ordenar por fecha ASC</a>
+                    </div>
+										<div class="item">
+                      <i class="sort content descending icon"></i>
+                      	<a href='/cotizaciones/orden=fecha-desc'>Ordenar por fecha DESC</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
 	        	</li>
 	        </ul>
 	    </div>
