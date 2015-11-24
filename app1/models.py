@@ -36,25 +36,58 @@ class Cotizacion(models.Model):
     empleado = models.ForeignKey('Empleado')
     total = models.FloatField()
     idEstadoCotizacion = models.PositiveIntegerField(default=1)
+    bono = models.PositiveIntegerField(default=13)
+    descuento = models.PositiveIntegerField(default=16)
     eliminado = models.BooleanField(default=False)
 
     def get_fields(self):
         return [(field.name, field.value_to_string(self)) for field in Cotizacion._meta.fields]
 
-    def _calcularTotal(self):
+    def _calcularTotalNeto(self):
         t = 0
         items = DetalleCotizacion.objects.filter(cotizacion=self.id, eliminado=False)
         for item in items:
             t = t + item.subtotal
         return t
 
+    def _calcularTotal(self):
+        t = 0
+        items = DetalleCotizacion.objects.filter(cotizacion=self.id, eliminado=False)
+        for item in items:
+            t = t + item.subtotal
+        elbono = ValorParametro.objects.get(id=self.bono)
+        eldescuento = ValorParametro.objects.get(id=self.descuento)
+        if elbono.valor <> 'Ninguno':
+            t = t - float(elbono.valor)
+        if eldescuento.valor <> 'Ninguno':
+            t = t - t*(float(eldescuento.valor)/100)
+        return t
+
+    def _calcularTotalIVA(self):
+        t = 0
+        items = DetalleCotizacion.objects.filter(cotizacion=self.id, eliminado=False)
+        for item in items:
+            t = t + item.subtotal
+        elbono = ValorParametro.objects.get(id=self.bono)
+        eldescuento = ValorParametro.objects.get(id=self.descuento)
+        if elbono.valor <> 'Ninguno':
+            t = t - float(elbono.valor)
+        if eldescuento.valor <> 'Ninguno':
+            t = t - t*(float(eldescuento.valor)/100)
+        iva = ValorParametro.objects.get(id=20)
+        t = t + t*(float(iva.valor)/100)
+        return t
+
+    total_neto = property(_calcularTotalNeto)
     total = property(_calcularTotal)
+    total_iva = property(_calcularTotalIVA)
 
     def __str__(self):
         return str(self.id)
 
 class DetalleCotizacion(models.Model):
     cotizacion = models.ForeignKey('Cotizacion', limit_choices_to={'eliminado': False})
+    tipoDetalle = models.PositiveIntegerField(default=24)
     producto = models.ForeignKey(
         'Producto', limit_choices_to={'eliminado': False}, blank=True, null=True)
     servicio = models.ForeignKey(

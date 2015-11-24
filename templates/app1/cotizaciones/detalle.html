@@ -22,7 +22,7 @@
 		<div class="col-lg-12">
 				<ul class="list-unstyled">
 					<li class="active">
-						<button type="button" class="ui inverted green icon button" onclick="javascript:window.print()">
+						<button type="button" id='imprimir' class="ui inverted green icon button" onclick="javascript:window.print()">
 							<i class="print icon"></i> Imprimir
 						</button>
 					</li>
@@ -36,8 +36,11 @@
 			    		<th>Fecha</th>
 			    		<th>Cliente</th>
 			    		<th>Empleado</th>
-							<th>Eliminado</th>
-			    		<th>Total</th>
+			    		<th>Total Neto</th>
+							<th>Bono</th>
+							<th>Descuento</th>
+							<th>Total</th>
+							<th>Total + IVA</th>
 			  		</tr>
 			  	</thead>
 				<tbody>
@@ -46,8 +49,11 @@
 						<td>{{cotizacion.fecha}}</td>
 						<td>{{cotizacion.cliente}}</td>
 						<td>{{cotizacion.empleado}}</td>
-						<td>{{cotizacion.eliminado}}</td>
-						<td>{{cotizacion.total}}</td>
+						<td>$ {{cotizacion.total_neto}}</td>
+						<td>$ {{bono.valor}}</td>
+						<td>{{descuento.valor}}%</td>
+						<td>$ {{cotizacion.total}}</td>
+						<td>$ {{cotizacion.total_iva}}</td>
 					</tr>
 			  	</tbody>
 			</table>
@@ -61,7 +67,6 @@
 			    		<th>Servicio</th>
 			    		<th>Cantidad</th>
 			    		<th>Subtotal</th>
-							<th>Eliminado</th>
 							<th>Acciones</th>
 			  		</tr>
 			  	</thead>
@@ -73,8 +78,7 @@
 						<td class="selectable"><a href="/productos/{{detalle.producto.id}}">{{detalle.producto}}</a></td>
 						<td class="selectable"><a href="/servicios/{{detalle.servicio.id}}">{{detalle.servicio}}</td>
 						<td>{{detalle.cantidad}}</td>
-						<td>{{detalle.subtotal}}</td>
-						<td>{{detalle.eliminado}}</td>
+						<td>$ {{detalle.subtotal}}</td>
 						<td>
 							<button type="button" class="ui yellow icon button" onclick="window.location.href='detalle/edit/{{detalle.id}}'"><i class="edit icon"></i></button>
 							<button type="button" class="ui negative icon button" onclick="window.location.href='detalle/delete/{{detalle.id}}'"><i class="remove icon"></i></button>

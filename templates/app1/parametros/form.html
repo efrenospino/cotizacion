@@ -6,19 +6,19 @@
 	<div class="row">
 	    <div class="col-lg-12">
 	        <h1 class="page-header">
-	            Detalle de la cotizacion
+	            Valores del parametro
 	            <small>Editar</small>
 	        </h1>
 	        <ol class="breadcrumb">
 	            <li><a class="section" href="/"><i class="circular folder icon"></i>Inicio</a></li>
 	            <i class="right chevron icon divider"></i>
-							<li><a class="section" href="/cotizaciones"><i class="circular folder icon"></i>Cotizaciones</a></li>
+							<li><a class="section" href="/parametros"><i class="circular folder icon"></i>Parametros</a></li>
 	            <i class="right chevron icon divider"></i>
-							<li><a class="section" href="/cotizaciones/{{cotizacion.id}}">
-								<i class="circular folder icon"></i>{{cotizacion.id}}
+							<li><a class="section" href="/parametros/{{parametro.id}}">
+								<i class="circular folder icon"></i>{{parametro.id}}
 							</a></li>
 	            <i class="right chevron icon divider"></i>
-	            <li class="active"><i class="circular folder open icon"></i> Editar detalle</li>
+	            <li class="active"><i class="circular folder open icon"></i> Editar valor del parametro</li>
 	        </ol>
 	    </div>
 	    <div class="col-lg-8">
@@ -38,7 +38,7 @@
 			    <form id="formulario" method="post" enctype="multipart/form-data" action="">
 
 						<p>
-								<input type="button" class="ui basic button" value="Cancelar" onclick="window.location.href='/cotizaciones/{{cotizacion.id}}'">
+								<input type="button" class="ui basic button" value="Cancelar" onclick="window.location.href='/parametros/{{parametro.id}}'">
 								<input type="submit" class="ui blue  button" value="Confirmar">
 						</p>
 

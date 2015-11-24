@@ -2,6 +2,21 @@
 {% block content %}
 
 	<!--<script type="text/javascript">$('.url.example .ui.embed').embed();</script>-->
+	<script type="text/javascript">
+		function habilitar2(value)
+		{
+			if(value=="24" || value==true)
+			{
+				document.getElementById("id_servicio").disabled=true;
+				document.getElementById("id_producto").disabled=false;
+				document.getElementById("id_cantidad").disabled=false;
+			} else if(value=="25") {
+				document.getElementById("id_servicio").disabled=true;
+				document.getElementById("id_producto").disabled=true;
+				document.getElementById("id_cantidad").disabled=false;
+			}
+		}
+	</script>
 
 	<div class="row">
 	    <div class="col-lg-12">

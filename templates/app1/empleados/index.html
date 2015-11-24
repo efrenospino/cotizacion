@@ -23,7 +23,7 @@
 		        	<div class="ui labeled button" tabindex="0">
 	          			<div class="blue ui button"  onclick="window.location.href='add'"><i class="add icon"></i> Nuevo </div>
 	          			<a class="ui basic blue left pointing label">
-	            			{{empleados|length}}
+	            			{{data|length}}
 	          			</a>
 	        		</div>
 	        	</li>
@@ -36,8 +36,8 @@
 			    		<th>Código</th>
 			    		<th>Identificación</th>
 							<th>Nombre de usuario</th>
-			    		<th>Direcion</th>
-			    		<th>Teléfonos</th>
+			    		<th>Nombres</th>
+			    		<th>Apellidos</th>
 			    		<th>Acciones</th>
 			  		</tr>
 			  	</thead>
@@ -47,8 +47,8 @@
 						<td width="30">{{empleado.id}}</td>
 						<td>{{empleado.identificacion}}</td>
 						<td>{{usuario.username}}</td>
-						<td>{{empleado.direccion}}</td>
-						<td>{{empleado.telefonos}}</td>
+						<td>{{usuario.first_name}}</td>
+						<td>{{usuario.last_name}}</td>
 						<td>
 							<div class="ui buttons">
 								<button type="button" class="ui default icon button" onclick="window.location.href='{{empleado.id}}'"><i class="external icon"></i></button>

@@ -88,12 +88,13 @@
 						<td>{{cotizacion.fecha}}</td>
 						<td>{{cotizacion.cliente}}</td>
 						<td>{{cotizacion.empleado}}</td>
-						<td>{{cotizacion.total}}</td>
+						<td>$ {{cotizacion.total_iva}}</td>
 						<td>
 							<div class="ui buttons">
 								<button type="button" class="ui default icon button" onclick="window.location.href='{{cotizacion.id}}'"><i class="external icon"></i></button>
 								<button type="button" class="ui yellow icon button" onclick="window.location.href='edit/{{cotizacion.id}}'"><i class="edit icon"></i></button>
 								{% if request.user.is_staff %}<button type="button" class="ui negative icon button" onclick="window.location.href='delete/{{cotizacion.id}}'"><i class="remove icon"></i></button>{% endif %}
+								<button type="button" class="ui blue icon button" onclick="window.location.href='/cotizaciones/add-detail/{{cotizacion.id}}'"><i class="add icon"></i></button>
 							</div>
 						</td>
 					</tr>

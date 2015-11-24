@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
@@ -224,8 +225,10 @@ def cotizacionesPorFechaDESC(request):
 def verCotizacion(request, id):
 	elemento = Cotizacion.objects.get(id=id)
 	detalles = DetalleCotizacion.objects.filter(cotizacion=id)
-	return render_to_response('app1/cotizaciones/detalle.html', {'cotizacion': elemento, 'detalles': detalles},
-		context_instance=RequestContext(request))
+	bono = ValorParametro.objects.get(id=elemento.bono)
+	descuento = ValorParametro.objects.get(id=elemento.descuento)
+	return render_to_response('app1/cotizaciones/detalle.html', {'cotizacion': elemento, 'detalles': detalles,
+		'bono': bono, 'descuento': descuento}, context_instance=RequestContext(request))
 
 @login_required(login_url='/login/')
 def agregarCotizacion(request):
@@ -258,9 +261,12 @@ def agregarDetalleCotizacion(request, id):
 			return HttpResponseRedirect("/cotizaciones/add-detail/"+str(id))
 	else:
 		form = DetalleCotizacionForm()
+	bono = ValorParametro.objects.get(id=cotizacion.bono)
+	descuento = ValorParametro.objects.get(id=cotizacion.descuento)
 	return render_to_response('app1/cotizaciones/detailform.html', {'formulario': form,
 		'modelo': 'DetalleCotizacion', 'respuesta': 'cotizaciones', 'cotizacion': cotizacion,
-		'detalles': detalles}, context_instance=RequestContext(request))
+		'detalles': detalles, 'bono': bono, 'descuento': descuento},
+		 context_instance=RequestContext(request))
 
 @login_required(login_url='/login/')
 @user_passes_test(lambda u:u.is_staff, login_url='/login/')
@@ -294,7 +300,6 @@ def eliminarDetalleCotizacion(request, id):
 		 context_instance=RequestContext(request))
 
 @login_required(login_url='/login/')
-@user_passes_test(lambda u:u.is_staff, login_url='/login/')
 def editarDetalleCotizacion(request, id):
 	item = get_object_or_404(DetalleCotizacion, id=id)
 	cotizacion = get_object_or_404(Cotizacion, id=item.cotizacion_id)
@@ -303,7 +308,7 @@ def editarDetalleCotizacion(request, id):
 		if formulario.is_valid():
 			item = formulario.save(commit=False)
 			item.save()
-			return HttpResponseRedirect("/cotizaciones/"+id)
+			return HttpResponseRedirect("/cotizaciones/"+str(cotizacion.id))
 	else:
 		formulario = DetalleCotizacionForm(instance=item)
 	return render_to_response('app1/cotizaciones/form.html', { 'modelo': "DetalleCotizacion",
@@ -347,4 +352,21 @@ def agregarValorParametro(request, id):
 	return render_to_response('app1/parametros/detailform.html', {'formulario': form,
 		'modelo': 'ValorParametro', 'respuesta': "'parametros/'+str(id)",
 		 'parametro': parametro, 'valores': valores},
+		 context_instance=RequestContext(request))
+
+@login_required(login_url='/login/')
+@user_passes_test(lambda u:u.is_staff, login_url='/login/')
+def editarValorParametro(request, id):
+	item = get_object_or_404(ValorParametro, id=id)
+	parametro = get_object_or_404(Parametro, id=item.parametro_id)
+	if request.POST:
+		formulario = ValorParametroForm(request.POST, instance=item)
+		if formulario.is_valid():
+			item = formulario.save(commit=False)
+			item.save()
+			return HttpResponseRedirect("/parametros/"+str(parametro.id))
+	else:
+		formulario = ValorParametroForm(instance=item)
+	return render_to_response('app1/parametros/form.html', { 'modelo': "ValorParametro",
+		'formulario': formulario, 'parametro': parametro },
 		 context_instance=RequestContext(request))

@@ -68,6 +68,6 @@ urlpatterns = [
     url(r'^parametros/add$', 'app1.views.agregarParametro'),
     url(r'^parametros/(?P<id>\d+)/$', 'app1.views.verParametro'),
     url(r'^parametros/(?P<id>\d+)/add-valor$', 'app1.views.agregarValorParametro'),
+    url(r'^parametros/valores/edit/(?P<id>\d+)/$', 'app1.views.editarValorParametro'),
 
-    url(r'^pdf/$', 'app1.views.hello_pdf'),
 ]

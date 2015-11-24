@@ -1,5 +1,21 @@
 	{% extends  "app1/cotizaciones/detalle.html" %}
 	{% block form %}
+
+	<script type="text/javascript">
+		function habilitar2(value)
+		{
+			if(value=="24" || value==true)
+			{
+				document.getElementById("id_servicio").disabled=true;
+				document.getElementById("id_producto").disabled=false;
+				document.getElementById("id_cantidad").disabled=false;
+			} else if(value=="25") {
+				document.getElementById("id_servicio").disabled=true;
+				document.getElementById("id_producto").disabled=true;
+				document.getElementById("id_cantidad").disabled=false;
+			}
+		}
+	</script>
 	<div class="row">
 	    <div class="col-lg-8">
 	    	<div class="ui form">
@@ -15,6 +31,19 @@
 			    	    </ul>
 			    	</div>
 		    	{% endif %}
+
+		    	<div class="ui alert message">
+			        <div class="header">Importante</div>
+			    	<ul class="list">
+			            <li>Debe seleccionar el tipo de item a agregar (<b>producto</b> o <b>servicio</b>).</li>
+			            <li>Si es un <b>producto</b>, por favor seleccione el <b>producto</b> y digite la <b>cantidad</b>.
+			            	Debe quedar el campo <b>servicio</b> en blanco.
+			            </li>
+			            <li>Si es un servicio, por favor seleccione el <b>servicio</b>. Los campos <b>producto</b> y <b>cantidad</b> deben quedar en blanco.
+			            </li>
+			        </ul>
+			    </div>
+
 			    <form id="formulario" method="post" enctype="multipart/form-data" action="">
 
 			    	{% csrf_token %}
@@ -27,7 +56,7 @@
 
 
 			    		  <input type="submit" class="ui positive button" value="Confirmar">
-								<input type="button" class="ui primary button" value="Finalizar" onclick="window.location.href='/{{respuesta}}'">
+								<input type="button" class="ui primary button" value="Finalizar" onclick="window.location.href='/cotizaciones/{{cotizacion.id}}'">
 
 			    	</p>
 
@@ -42,6 +71,7 @@
 
 	<script type="text/javascript">
 		document.getElementById('{{respuesta}}').className = 'active';
+		document.getElementById('imprimir').style.display = 'none';
 	</script>
 
 	{%endblock form%}
